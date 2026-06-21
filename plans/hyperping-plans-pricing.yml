@@ -1,0 +1,270 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Hyperping
+providerId: hyperping
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: true
+tags:
+- Uptime Monitoring
+- Status Pages
+- Incident Management
+- Observability
+- On-Call
+- Plans
+description: >-
+  Hyperping uses flat-rate subscription tiers priced by capacity (number of
+  monitors, status pages, check frequency, and seats) rather than per-user.
+  The API is included on all paid plans and the free plan. Tiers shown are
+  the published monthly prices when billed annually (two months free); list
+  prices are higher when billed monthly. An Enterprise tier provides custom
+  capacity and contracts.
+notes: >-
+  Verify current prices and quotas on the Hyperping pricing page during
+  reconciliation; plan names, monitor counts, and check intervals change.
+sources:
+- https://hyperping.com/pricing
+- https://hyperping.com/docs
+plans:
+- id: hyperping-free
+  name: Free
+  type: free
+  description: >-
+    Free forever plan with HTTP, port, ping, and keyword monitoring and one
+    status page.
+  entries:
+  - label: Monitors
+    name: monitors
+    type: quota
+    metric: monitors
+    limit: 20
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  - label: Status Pages
+    name: status_pages
+    type: quota
+    metric: status_pages
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  - label: Check Interval
+    name: check_interval
+    type: feature
+    metric: seconds
+    limit: 300
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 5 minute checks
+    userMultiplied: false
+  elements:
+  - name: HTTP / Port / Ping / Keyword Monitoring
+  - name: 1 Seat
+- id: hyperping-essentials
+  name: Essentials
+  type: subscription
+  description: >-
+    Entry paid plan adding 30-second checks, browser checks, custom domain,
+    on-call and escalation policies, DNS monitoring, and all integrations.
+  entries:
+  - label: Monthly Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $24/month billed annually
+    userMultiplied: false
+  - label: Monitors
+    name: monitors
+    type: quota
+    metric: monitors
+    limit: 50
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Status Pages
+    name: status_pages
+    type: quota
+    metric: status_pages
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Check Interval
+    name: check_interval
+    type: feature
+    metric: seconds
+    limit: 30
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 30 second checks
+    userMultiplied: false
+  elements:
+  - name: 2 Seats
+  - name: Browser Checks (3)
+  - name: Custom Domain
+  - name: On-Call & Escalation Policies
+  - name: DNS Monitoring
+  - name: All Integrations
+  - name: 100 Subscribers
+- id: hyperping-pro
+  name: Pro
+  type: subscription
+  description: >-
+    Growth plan with more monitors, status pages, seats, browser checks,
+    phone call alerts, and all Essentials features.
+  entries:
+  - label: Monthly Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $74/month billed annually
+    userMultiplied: false
+  - label: Monitors
+    name: monitors
+    type: quota
+    metric: monitors
+    limit: 100
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Status Pages
+    name: status_pages
+    type: quota
+    metric: status_pages
+    limit: 3
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Check Interval
+    name: check_interval
+    type: feature
+    metric: seconds
+    limit: 30
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 30 second checks
+    userMultiplied: false
+  elements:
+  - name: 5 Seats
+  - name: Browser Checks (10)
+  - name: 1,000 Subscribers
+  - name: Phone Call Alerts
+  - name: All Essentials Features
+- id: hyperping-business
+  name: Business
+  type: subscription
+  description: >-
+    Scale plan with 1,000 monitors, 10 status pages, 20-second checks,
+    priority support, audit logs, white labeling, SAML SSO, and IP allowlisting.
+  entries:
+  - label: Monthly Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $249/month billed annually
+    userMultiplied: false
+  - label: Monitors
+    name: monitors
+    type: quota
+    metric: monitors
+    limit: 1000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Status Pages
+    name: status_pages
+    type: quota
+    metric: status_pages
+    limit: 10
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Check Interval
+    name: check_interval
+    type: feature
+    metric: seconds
+    limit: 20
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 20 second checks
+    userMultiplied: false
+  - label: Additional Seat
+    name: additional_seat
+    type: usage
+    metric: seats
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $12/month per additional user beyond 15
+    userMultiplied: true
+  elements:
+  - name: 15 Seats
+  - name: Browser Checks (25)
+  - name: Priority Support
+  - name: Audit Logs
+  - name: White Labeling
+  - name: Custom Email Domain
+  - name: SAML SSO
+  - name: IP Allowlisting
+- id: hyperping-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom capacity with white-glove migration, dedicated support, and custom
+    contract and invoicing. Contact Hyperping sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Monitors
+  - name: Custom Status Pages
+  - name: Custom Seats
+  - name: White-Glove Migration
+  - name: Dedicated Support
+  - name: Custom Contract & Invoicing
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

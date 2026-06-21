@@ -1,0 +1,102 @@
+aid: hyperping
+name: Hyperping
+review:
+  question: Does Hyperping expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Hyperping's only event/push surface is outbound HTTP webhooks
+    (check.down and check.up POSTed to a user-configured URL). Webhooks are
+    plain HTTP callbacks, not a streaming transport, and the webhook
+    destination is configured in the dashboard rather than via the REST API.
+    No SSE or WebSocket channel is documented, so no AsyncAPI document was
+    authored.
+findings:
+  summary: |
+    Hyperping does not publish a documented public WebSocket API. The platform
+    exposes a REST (HTTPS) management API under https://api.hyperping.io with
+    independently versioned path segments (monitors and maintenance under
+    /v1, healthchecks / outages / reporting under /v2, incidents under /v3),
+    authenticated with a project API key as a Bearer token. Real-time change
+    notification is delivered via outbound HTTP webhooks (check.down /
+    check.up), not over a bidirectional or streaming socket. A public
+    /{subdomain}/status.json endpoint provides a read-only status feed over
+    HTTPS. No realtime, bidirectional, or streaming WebSocket (ws:// or
+    wss://) endpoint is documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.hyperping.io
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Outbound HTTP POST callbacks (check.down / check.up) to a user-configured URL. Not WebSocket and not SSE.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Hyperping's API reference, webhooks page, or status page documentation as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://api.hyperping.io/v1/monitors
+    - POST   https://api.hyperping.io/v1/monitors
+    - GET    https://api.hyperping.io/v1/monitors/{monitor_uuid}
+    - PUT    https://api.hyperping.io/v1/monitors/{monitor_uuid}
+    - DELETE https://api.hyperping.io/v1/monitors/{monitor_uuid}
+    - GET    https://api.hyperping.io/v1/{subdomain}/status.json
+    - GET    https://api.hyperping.io/v2/healthchecks
+    - POST   https://api.hyperping.io/v2/healthchecks
+    - GET    https://api.hyperping.io/v2/healthchecks/{healthcheck_uuid}
+    - PUT    https://api.hyperping.io/v2/healthchecks/{healthcheck_uuid}
+    - DELETE https://api.hyperping.io/v2/healthchecks/{healthcheck_uuid}
+    - POST   https://api.hyperping.io/v2/healthchecks/{healthcheck_uuid}/pause
+    - POST   https://api.hyperping.io/v2/healthchecks/{healthcheck_uuid}/resume
+    - GET    https://api.hyperping.io/v3/incidents
+    - POST   https://api.hyperping.io/v3/incidents
+    - GET    https://api.hyperping.io/v3/incidents/{incident_uuid}
+    - PUT    https://api.hyperping.io/v3/incidents/{incident_uuid}
+    - DELETE https://api.hyperping.io/v3/incidents/{incident_uuid}
+    - POST   https://api.hyperping.io/v3/incidents/{incident_uuid}/updates
+    - GET    https://api.hyperping.io/v1/maintenance-windows
+    - POST   https://api.hyperping.io/v1/maintenance-windows
+    - GET    https://api.hyperping.io/v1/maintenance-windows/{maintenance_uuid}
+    - PUT    https://api.hyperping.io/v1/maintenance-windows/{maintenance_uuid}
+    - DELETE https://api.hyperping.io/v1/maintenance-windows/{maintenance_uuid}
+    - POST   https://api.hyperping.io/v1/maintenance-windows/{maintenance_uuid}/complete
+    - GET    https://api.hyperping.io/v2/outages
+    - POST   https://api.hyperping.io/v2/outages
+    - GET    https://api.hyperping.io/v2/outages/{outage_uuid}
+    - DELETE https://api.hyperping.io/v2/outages/{outage_uuid}
+    - POST   https://api.hyperping.io/v2/outages/{outage_uuid}/acknowledge
+    - POST   https://api.hyperping.io/v2/outages/{outage_uuid}/unacknowledge
+    - POST   https://api.hyperping.io/v2/outages/{outage_uuid}/resolve
+    - POST   https://api.hyperping.io/v2/outages/{outage_uuid}/escalate
+    - GET    https://api.hyperping.io/v2/reporting/monitor-reports
+    - GET    https://api.hyperping.io/v2/reporting/monitor-reports/{monitor_uuid}
+sources:
+  - url: https://hyperping.com/docs
+    type: Documentation
+    note: API overview lists REST resource sections; no WebSocket mentioned.
+  - url: https://hyperping.com/docs/api/authentication
+    type: Documentation
+    note: Base URL https://api.hyperping.io/v1 with Authorization Bearer API key; Read & Write or Read-only keys.
+  - url: https://hyperping.com/docs/api/monitors
+    type: APIReference
+    note: All documented monitor endpoints are HTTPS REST.
+  - url: https://hyperping.com/docs/integrations/webhooks
+    type: Documentation
+    note: Outbound webhooks emit check.down / check.up HTTP POST payloads; configured in the dashboard, not WebSocket.
+  - url: https://hyperping.com/docs/status-page/status-page-json
+    type: Documentation
+    note: Public /{subdomain}/status.json read-only feed over HTTPS; not WebSocket.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE protocol surface exists. The only push mechanism is
+    outbound HTTP webhooks configured through the dashboard, which is modeled
+    as a Webhooks API entry in apis.yml rather than as an AsyncAPI document.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

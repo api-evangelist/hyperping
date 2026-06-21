@@ -1,0 +1,497 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hyperping API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all monitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/monitors"
+          },
+          "docs": "List all monitors"
+        },
+        {
+          "info": {
+            "name": "Create a new monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/monitors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new monitor"
+        },
+        {
+          "info": {
+            "name": "Retrieve a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/monitors/{{monitor_uuid}}"
+          },
+          "docs": "Retrieve a monitor"
+        },
+        {
+          "info": {
+            "name": "Update a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.hyperping.io/v1/monitors/{{monitor_uuid}}",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a monitor"
+        },
+        {
+          "info": {
+            "name": "Delete a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hyperping.io/v1/monitors/{{monitor_uuid}}"
+          },
+          "docs": "Delete a monitor"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Status Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the public status feed for a status page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/{{subdomain}}/status.json"
+          },
+          "docs": "Get the public status feed for a status page"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Healthchecks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all healthchecks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v2/healthchecks"
+          },
+          "docs": "List all healthchecks"
+        },
+        {
+          "info": {
+            "name": "Create a new healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v2/healthchecks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new healthcheck"
+        },
+        {
+          "info": {
+            "name": "Retrieve a healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v2/healthchecks/{{healthcheck_uuid}}"
+          },
+          "docs": "Retrieve a healthcheck"
+        },
+        {
+          "info": {
+            "name": "Update a healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.hyperping.io/v2/healthchecks/{{healthcheck_uuid}}",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a healthcheck"
+        },
+        {
+          "info": {
+            "name": "Delete a healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hyperping.io/v2/healthchecks/{{healthcheck_uuid}}"
+          },
+          "docs": "Delete a healthcheck"
+        },
+        {
+          "info": {
+            "name": "Pause a healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v2/healthchecks/{{healthcheck_uuid}}/pause"
+          },
+          "docs": "Pause a healthcheck"
+        },
+        {
+          "info": {
+            "name": "Resume a healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v2/healthchecks/{{healthcheck_uuid}}/resume"
+          },
+          "docs": "Resume a healthcheck"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Incidents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all incidents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v3/incidents"
+          },
+          "docs": "Get all incidents"
+        },
+        {
+          "info": {
+            "name": "Create an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v3/incidents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an incident"
+        },
+        {
+          "info": {
+            "name": "Get an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v3/incidents/{{incident_uuid}}"
+          },
+          "docs": "Get an incident"
+        },
+        {
+          "info": {
+            "name": "Update an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.hyperping.io/v3/incidents/{{incident_uuid}}",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an incident"
+        },
+        {
+          "info": {
+            "name": "Delete an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hyperping.io/v3/incidents/{{incident_uuid}}"
+          },
+          "docs": "Delete an incident"
+        },
+        {
+          "info": {
+            "name": "Add an update to an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v3/incidents/{{incident_uuid}}/updates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an update to an incident"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Maintenance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all maintenance windows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/maintenance-windows"
+          },
+          "docs": "List all maintenance windows"
+        },
+        {
+          "info": {
+            "name": "Create a maintenance window",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/maintenance-windows",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a maintenance window"
+        },
+        {
+          "info": {
+            "name": "Retrieve a maintenance window",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/maintenance-windows/{{maintenance_uuid}}"
+          },
+          "docs": "Retrieve a maintenance window"
+        },
+        {
+          "info": {
+            "name": "Update a maintenance window",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.hyperping.io/v1/maintenance-windows/{{maintenance_uuid}}",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a maintenance window"
+        },
+        {
+          "info": {
+            "name": "Delete a maintenance window",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hyperping.io/v1/maintenance-windows/{{maintenance_uuid}}"
+          },
+          "docs": "Delete a maintenance window"
+        },
+        {
+          "info": {
+            "name": "Mark a maintenance window as completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/maintenance-windows/{{maintenance_uuid}}/complete"
+          },
+          "docs": "Mark a maintenance window as completed"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Outages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all outages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v2/outages"
+          },
+          "docs": "List all outages"
+        },
+        {
+          "info": {
+            "name": "Create a manual outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v2/outages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a manual outage"
+        },
+        {
+          "info": {
+            "name": "Retrieve an outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v2/outages/{{outage_uuid}}"
+          },
+          "docs": "Retrieve an outage"
+        },
+        {
+          "info": {
+            "name": "Delete a manual outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hyperping.io/v2/outages/{{outage_uuid}}"
+          },
+          "docs": "Delete a manual outage"
+        },
+        {
+          "info": {
+            "name": "Acknowledge an outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v2/outages/{{outage_uuid}}/acknowledge"
+          },
+          "docs": "Acknowledge an outage"
+        },
+        {
+          "info": {
+            "name": "Remove acknowledgement from an outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v2/outages/{{outage_uuid}}/unacknowledge"
+          },
+          "docs": "Remove acknowledgement from an outage"
+        },
+        {
+          "info": {
+            "name": "Resolve an outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v2/outages/{{outage_uuid}}/resolve"
+          },
+          "docs": "Resolve an outage"
+        },
+        {
+          "info": {
+            "name": "Escalate an outage to team members",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v2/outages/{{outage_uuid}}/escalate"
+          },
+          "docs": "Escalate an outage to team members"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get reports for all monitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v2/reporting/monitor-reports"
+          },
+          "docs": "Get reports for all monitors"
+        },
+        {
+          "info": {
+            "name": "Get a report for a specific monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v2/reporting/monitor-reports/{{monitor_uuid}}"
+          },
+          "docs": "Get a report for a specific monitor"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

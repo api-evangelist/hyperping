@@ -1,0 +1,104 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Hyperping
+providerId: hyperping
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: true
+tags:
+- Uptime Monitoring
+- Status Pages
+- Incident Management
+- Observability
+- On-Call
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Hyperping spend. Hyperping bills on a flat-rate subscription
+  model priced by capacity tier (Free, Essentials, Pro, Business, Enterprise),
+  where each tier bundles a fixed number of monitors, status pages, browser
+  checks, and seats. Cost is largely fixed and predictable per billing period;
+  the main variable charges are additional Business seats ($12/month each) and
+  annual-vs-monthly billing (two months free when paid annually).
+notes: >-
+  Verify current tier prices and included quotas against the Hyperping pricing
+  page during reconciliation.
+sources:
+- https://hyperping.com/pricing
+- https://hyperping.com/docs
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Hyperping
+serviceCategory: Management and Governance
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly or Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Hyperping
+  ServiceCategory: Management and Governance
+  ProviderName: Hyperping
+  PublisherName: Hyperping
+  InvoiceIssuerName: Hyperping
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: subscription_tier
+  description: Flat monthly or annual subscription fee for the selected plan tier.
+  unit: subscription
+  aggregation: flat
+  dimensions:
+  - account
+  - plan
+- name: additional_seats
+  description: Additional Business-plan user seats beyond the included 15, at $12/month each.
+  unit: seats
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: monitors_used
+  description: Monitors in use against the plan's included monitor quota.
+  unit: monitors
+  aggregation: max
+  dimensions:
+  - account
+  - plan
+- name: status_pages_used
+  description: Status pages in use against the plan's included status page quota.
+  unit: status_pages
+  aggregation: max
+  dimensions:
+  - account
+  - plan
+- name: browser_checks_used
+  description: Browser checks in use against the plan's included browser-check quota.
+  unit: checks
+  aggregation: max
+  dimensions:
+  - account
+  - plan
+principles:
+- name: Visibility
+  description: Track which plan tier is active and how many monitors, status pages, seats, and browser checks are consumed against quota.
+- name: Allocation
+  description: Map the single subscription invoice and any additional-seat charges to the owning team or cost center.
+- name: Optimization
+  description: Pay annually for two months free; right-size the plan tier to actual monitor and seat needs; avoid over-provisioning Business seats.
+- name: Accountability
+  description: Assign an owner for the Hyperping subscription; review tier and seat count against actual usage each renewal.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

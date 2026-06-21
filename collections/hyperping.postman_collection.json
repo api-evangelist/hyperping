@@ -1,0 +1,1079 @@
+{
+  "item": [
+    {
+      "id": "9d512614-5bc3-40bf-99b1-c522d52a667d",
+      "name": "Monitors",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1322589d-5420-4f12-9d1c-cf69c54f63d2",
+          "name": "List all monitors",
+          "request": {
+            "name": "List all monitors",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "monitors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "f3cabfb2-9d5d-47ca-94d4-17dbb08a4b76",
+          "name": "Create a new monitor",
+          "request": {
+            "name": "Create a new monitor",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "monitors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "ceab1890-934a-4c81-964d-b9b8ba29d58d",
+          "name": "Retrieve a monitor",
+          "request": {
+            "name": "Retrieve a monitor",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "monitors",
+                "{{monitor_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "7db0c4e6-ccf5-4e15-a77a-20c0ddcdcaf0",
+          "name": "Update a monitor",
+          "request": {
+            "name": "Update a monitor",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "monitors",
+                "{{monitor_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "4cfab222-9636-4b1e-81d4-4e8af25e7b1b",
+          "name": "Delete a monitor",
+          "request": {
+            "name": "Delete a monitor",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "monitors",
+                "{{monitor_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "fa7488f8-f1f1-422c-a7ca-93b4a50e734c",
+      "name": "Status Pages",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1c69ea83-7148-4c05-8f4f-eddb661d2e01",
+          "name": "Get the public status feed for a status page",
+          "request": {
+            "name": "Get the public status feed for a status page",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "{{subdomain}}",
+                "status.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "572e0b77-0be1-41a4-a3a7-dac512683abc",
+      "name": "Healthchecks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3980d903-684f-486b-8b0d-85ba7b1c845f",
+          "name": "List all healthchecks",
+          "request": {
+            "name": "List all healthchecks",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "healthchecks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "ffae119e-f2c3-4f22-a8ee-4ab3343fd8ac",
+          "name": "Create a new healthcheck",
+          "request": {
+            "name": "Create a new healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "healthchecks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "eca5bb14-8d79-4536-9acd-7305b75de0f8",
+          "name": "Retrieve a healthcheck",
+          "request": {
+            "name": "Retrieve a healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "healthchecks",
+                "{{healthcheck_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "144a3c4f-d611-43df-8a8c-653d5fdbc607",
+          "name": "Update a healthcheck",
+          "request": {
+            "name": "Update a healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "healthchecks",
+                "{{healthcheck_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "3fcde260-d9b6-450b-8f19-4b670a0f6853",
+          "name": "Delete a healthcheck",
+          "request": {
+            "name": "Delete a healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "healthchecks",
+                "{{healthcheck_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "71d3814b-94ab-46de-b27c-76fe86ccd377",
+          "name": "Pause a healthcheck",
+          "request": {
+            "name": "Pause a healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "healthchecks",
+                "{{healthcheck_uuid}}",
+                "pause"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "7b55345c-0128-4b54-9e61-8e118281b860",
+          "name": "Resume a healthcheck",
+          "request": {
+            "name": "Resume a healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "healthchecks",
+                "{{healthcheck_uuid}}",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "d00e9893-7d38-42e2-8d8e-3d5dce61f81d",
+      "name": "Incidents",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ca7ce9c4-7a79-4761-8b88-edc4c924d75d",
+          "name": "Get all incidents",
+          "request": {
+            "name": "Get all incidents",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "incidents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "6d6b22cf-c81b-4a8a-bc58-adb8c3f1a5a4",
+          "name": "Create an incident",
+          "request": {
+            "name": "Create an incident",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "incidents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "f231a156-764f-4459-8c30-f736b11694d6",
+          "name": "Get an incident",
+          "request": {
+            "name": "Get an incident",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "incidents",
+                "{{incident_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "80888ca9-916f-4fa9-8af0-79666371f0ab",
+          "name": "Update an incident",
+          "request": {
+            "name": "Update an incident",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "incidents",
+                "{{incident_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "829f7b84-49bd-4c0f-a0cb-4bc1e3f616fd",
+          "name": "Delete an incident",
+          "request": {
+            "name": "Delete an incident",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "incidents",
+                "{{incident_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "9f92da4e-dd15-44c0-b9bd-7d5480654df0",
+          "name": "Add an update to an incident",
+          "request": {
+            "name": "Add an update to an incident",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "incidents",
+                "{{incident_uuid}}",
+                "updates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "8b81e41a-1501-43ea-a41f-ee9581df28c5",
+      "name": "Maintenance",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9f44bf26-c939-4db8-bde1-00a86fdc935c",
+          "name": "List all maintenance windows",
+          "request": {
+            "name": "List all maintenance windows",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "maintenance-windows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "02b4fd8d-0b4e-44c1-a000-2ae51755143a",
+          "name": "Create a maintenance window",
+          "request": {
+            "name": "Create a maintenance window",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "maintenance-windows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "7fa91943-62d0-4edd-aa2e-ba5b45649152",
+          "name": "Retrieve a maintenance window",
+          "request": {
+            "name": "Retrieve a maintenance window",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "maintenance-windows",
+                "{{maintenance_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "47c17356-fa54-460c-8f10-21275f67061a",
+          "name": "Update a maintenance window",
+          "request": {
+            "name": "Update a maintenance window",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "maintenance-windows",
+                "{{maintenance_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "67dbd758-f797-4b52-a58e-abc4a8b68c3e",
+          "name": "Delete a maintenance window",
+          "request": {
+            "name": "Delete a maintenance window",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "maintenance-windows",
+                "{{maintenance_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "668fc999-39a9-4bef-b0ce-2699fb8bfe92",
+          "name": "Mark a maintenance window as completed",
+          "request": {
+            "name": "Mark a maintenance window as completed",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "maintenance-windows",
+                "{{maintenance_uuid}}",
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "db9c8223-fdc8-4662-a192-1b920ed3613f",
+      "name": "Outages",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e1387791-48a6-49fb-aa29-0dd853971a45",
+          "name": "List all outages",
+          "request": {
+            "name": "List all outages",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "outages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "d4c3f1c7-4787-43f6-8d34-d69e4a46479b",
+          "name": "Create a manual outage",
+          "request": {
+            "name": "Create a manual outage",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "outages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "d1bcf87c-24a4-46c6-936b-dbc439b5c159",
+          "name": "Retrieve an outage",
+          "request": {
+            "name": "Retrieve an outage",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "outages",
+                "{{outage_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "8f16af15-b9e4-4c90-87d8-2daa62b4359f",
+          "name": "Delete a manual outage",
+          "request": {
+            "name": "Delete a manual outage",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "outages",
+                "{{outage_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "00a41758-5350-4f27-b0fc-08bd925dad96",
+          "name": "Acknowledge an outage",
+          "request": {
+            "name": "Acknowledge an outage",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "outages",
+                "{{outage_uuid}}",
+                "acknowledge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "528e44ba-7a33-4b3a-bb65-1f90593ec8a1",
+          "name": "Remove acknowledgement from an outage",
+          "request": {
+            "name": "Remove acknowledgement from an outage",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "outages",
+                "{{outage_uuid}}",
+                "unacknowledge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "95410a76-c8ec-44ff-9e6e-83aa03ab3955",
+          "name": "Resolve an outage",
+          "request": {
+            "name": "Resolve an outage",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "outages",
+                "{{outage_uuid}}",
+                "resolve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "4f9eef24-6b4d-4f6d-9e3b-82cda628210f",
+          "name": "Escalate an outage to team members",
+          "request": {
+            "name": "Escalate an outage to team members",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "outages",
+                "{{outage_uuid}}",
+                "escalate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "ca93aab5-7cd5-401e-af71-3c6cffe0dd96",
+      "name": "Reports",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf6ff258-2ae8-4e62-ac28-6fb2cbfe78ef",
+          "name": "Get reports for all monitors",
+          "request": {
+            "name": "Get reports for all monitors",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "reporting",
+                "monitor-reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "13115095-dffc-49a8-a87a-2a140fb4220a",
+          "name": "Get a report for a specific monitor",
+          "request": {
+            "name": "Get a report for a specific monitor",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "reporting",
+                "monitor-reports",
+                "{{monitor_uuid}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "490f428d-0652-44ea-a254-030fe36b4c72",
+    "name": "Hyperping API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Hyperping uptime monitoring and status page platform.\n\nContact Support:\n Name: Hyperping Support\n Email: hello@hyperping.io",
+      "type": "text/plain"
+    }
+  }
+}

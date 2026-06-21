@@ -1,0 +1,123 @@
+aid: hyperping
+url: https://raw.githubusercontent.com/api-evangelist/hyperping/refs/heads/main/apis.yml
+name: Hyperping
+kind: company
+description: Hyperping is an uptime monitoring and status page platform. Its REST API
+  lets teams programmatically manage HTTP, ping, port, keyword, DNS, and browser
+  monitors, run scheduled-task healthchecks, operate public status pages through
+  incidents and maintenance windows, manage on-call outages, and pull uptime and
+  SLA reporting.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Uptime Monitoring
+- Status Pages
+- Incident Management
+- Observability
+- On-Call
+created: '2026-06-21'
+modified: '2026-06-21'
+specificationVersion: '0.19'
+apis:
+- aid: hyperping:monitors
+  name: Hyperping Monitors API
+  tags:
+  - Monitors
+  - Uptime Monitoring
+  - Healthchecks
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hyperping.com/docs/api/monitors
+  baseURL: https://api.hyperping.io/v1
+  properties:
+  - url: https://hyperping.com/docs/api/monitors
+    type: Documentation
+  - url: https://hyperping.com/docs/api/monitors
+    type: APIReference
+  - url: openapi/hyperping-openapi.yml
+    type: OpenAPI
+  - url: collections/hyperping.postman_collection.json
+    type: PostmanCollection
+  - url: collections/hyperping.opencollection.json
+    type: OpenCollection
+  description: Programmatically create, list, retrieve, update, and delete HTTP, ping,
+    port, keyword, DNS, and browser monitors, plus cron-style healthchecks for
+    scheduled tasks and background jobs, and pull uptime / SLA / MTTR reporting.
+- aid: hyperping:status-pages
+  name: Hyperping Status Pages API
+  tags:
+  - Status Pages
+  - Public Status
+  - JSON
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hyperping.com/docs/status-page/status-page-json
+  baseURL: https://api.hyperping.io/v1
+  properties:
+  - url: https://hyperping.com/docs/status-page/status-page-json
+    type: Documentation
+  - url: openapi/hyperping-openapi.yml
+    type: OpenAPI
+  - url: collections/hyperping.postman_collection.json
+    type: PostmanCollection
+  - url: collections/hyperping.opencollection.json
+    type: OpenCollection
+  description: Public machine-readable status feed exposing a status page's overall
+    status indicator plus per-service operational state and uptime via the
+    /{subdomain}/status.json endpoint for dashboards and internal tooling.
+- aid: hyperping:incidents
+  name: Hyperping Incidents API
+  tags:
+  - Incidents
+  - Maintenance
+  - Outages
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hyperping.com/docs/api/incidents
+  baseURL: https://api.hyperping.io/v1
+  properties:
+  - url: https://hyperping.com/docs/api/incidents
+    type: Documentation
+  - url: https://hyperping.com/docs/api/incidents
+    type: APIReference
+  - url: openapi/hyperping-openapi.yml
+    type: OpenAPI
+  - url: collections/hyperping.postman_collection.json
+    type: PostmanCollection
+  - url: collections/hyperping.opencollection.json
+    type: OpenCollection
+  description: Manage the full incident lifecycle on status pages (investigating,
+    identified, monitoring, resolved) with threaded updates, schedule and complete
+    maintenance windows, and acknowledge, resolve, or escalate on-call outages.
+- aid: hyperping:webhooks
+  name: Hyperping Webhooks
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hyperping.com/docs/integrations/webhooks
+  baseURL: https://api.hyperping.io/v1
+  properties:
+  - url: https://hyperping.com/docs/integrations/webhooks
+    type: Documentation
+  - url: openapi/hyperping-openapi.yml
+    type: OpenAPI
+  description: Outbound event notifications delivering check.down and check.up
+    payloads - including monitor UUID, status code, downtime duration, and
+    multi-region ping results - to a configured webhook URL for incident
+    automation.
+common:
+- type: GitHubOrganization
+  url: https://github.com/hyperping
+- type: LinkedIn
+  url: https://www.linkedin.com/company/hyperping
+- type: Website
+  url: https://hyperping.com/
+- type: Documentation
+  url: https://hyperping.com/docs
+- type: Plans
+  url: plans/hyperping-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/hyperping-rate-limits.yml
+- type: FinOps
+  url: finops/hyperping-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

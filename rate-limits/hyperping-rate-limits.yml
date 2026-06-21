@@ -1,0 +1,74 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Hyperping
+providerId: hyperping
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Uptime Monitoring
+- Status Pages
+- Incident Management
+- Observability
+- On-Call
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Hyperping REST API is authenticated per project with a Bearer API key.
+  Hyperping does not publish specific numeric request-per-minute limits for
+  the management API in its public documentation; usage capacity is governed
+  primarily by plan quotas (number of monitors, status pages, browser checks,
+  and seats) rather than by a published API throttle. Specific per-endpoint
+  request limits are not reconciled in this artifact.
+notes: >-
+  Confirm any per-key request limits and throttling headers with Hyperping
+  support during reconciliation. Plan quotas (monitors, status pages, seats)
+  are documented on the pricing page and act as the primary usage ceiling.
+sources:
+- https://hyperping.com/docs/api/authentication
+- https://hyperping.com/docs/api/monitors
+- https://hyperping.com/pricing
+responseCodes:
+  unauthorized: 401
+  forbidden: 403
+  throttled: 429
+limits:
+- name: API Requests
+  scope: project
+  metric: requests
+  limit: see provider documentation
+  notes: No published numeric request-per-minute limit for the management API; confirm with support.
+- name: Monitors
+  scope: account
+  metric: monitors
+  limit: per plan (20 Free / 50 Essentials / 100 Pro / 1000 Business)
+  notes: Plan-based capacity quota, not a request throttle.
+- name: Status Pages
+  scope: account
+  metric: status_pages
+  limit: per plan (1 / 1 / 3 / 10)
+  notes: Plan-based capacity quota.
+- name: Seats
+  scope: account
+  metric: seats
+  limit: per plan (1 / 2 / 5 / 15)
+  notes: Additional Business seats billed at $12/month each.
+policies:
+- name: Authentication
+  description: >-
+    Every request requires Authorization Bearer with a project API key.
+    Missing or invalid keys return 401; Read-only keys hitting write
+    operations return 403.
+- name: Plan-Based Capacity
+  description: >-
+    Usage is bounded by plan quotas on monitors, status pages, browser
+    checks, and seats rather than a published API request throttle.
+- name: Backoff Strategy
+  description: >-
+    Clients should implement exponential backoff with jitter and honor any
+    Retry-After header on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
