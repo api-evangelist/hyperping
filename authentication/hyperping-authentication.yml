@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/hyperping-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'Project API key issued from the Developers tab in project settings, sent as
+    `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing
+    or invalid key returns 401; insufficient permissions return 403.'
+  sources:
+  - openapi/hyperping-openapi.yml
