@@ -104,6 +104,8 @@ apis:
     multi-region ping results - to a configured webhook URL for incident
     automation.
 common:
+- type: AgenticAccess
+  url: agentic-access/hyperping-agentic-access.yml
 - type: DomainSecurity
   url: security/hyperping-domain-security.yml
 - type: Authentication
