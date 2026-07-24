@@ -1,0 +1,168 @@
+openapi: 3.0.1
+info:
+  title: Hyperping Healthchecks Maintenance API
+  description: REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.
+  termsOfService: https://hyperping.com/terms
+  contact:
+    name: Hyperping Support
+    email: hello@hyperping.io
+  version: '1.0'
+servers:
+- url: https://api.hyperping.io/v1
+  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+security:
+- bearerAuth: []
+tags:
+- name: Maintenance
+  description: Scheduled maintenance windows.
+paths:
+  /maintenance-windows:
+    get:
+      operationId: listMaintenanceWindows
+      tags:
+      - Maintenance
+      summary: List all maintenance windows
+      responses:
+        '200':
+          description: A list of maintenance windows.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MaintenanceWindow'
+    post:
+      operationId: createMaintenanceWindow
+      tags:
+      - Maintenance
+      summary: Create a maintenance window
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaintenanceWindowInput'
+      responses:
+        '201':
+          description: The created maintenance window.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceWindow'
+  /maintenance-windows/{maintenance_uuid}:
+    parameters:
+    - $ref: '#/components/parameters/MaintenanceUuid'
+    get:
+      operationId: getMaintenanceWindow
+      tags:
+      - Maintenance
+      summary: Retrieve a maintenance window
+      responses:
+        '200':
+          description: The requested maintenance window.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceWindow'
+    put:
+      operationId: updateMaintenanceWindow
+      tags:
+      - Maintenance
+      summary: Update a maintenance window
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaintenanceWindowInput'
+      responses:
+        '200':
+          description: The updated maintenance window.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceWindow'
+    delete:
+      operationId: deleteMaintenanceWindow
+      tags:
+      - Maintenance
+      summary: Delete a maintenance window
+      responses:
+        '204':
+          description: The maintenance window was deleted.
+  /maintenance-windows/{maintenance_uuid}/complete:
+    parameters:
+    - $ref: '#/components/parameters/MaintenanceUuid'
+    post:
+      operationId: completeMaintenanceWindow
+      tags:
+      - Maintenance
+      summary: Mark a maintenance window as completed
+      responses:
+        '200':
+          description: The completed maintenance window.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceWindow'
+components:
+  parameters:
+    MaintenanceUuid:
+      name: maintenance_uuid
+      in: path
+      required: true
+      description: The unique identifier of the maintenance window.
+      schema:
+        type: string
+  schemas:
+    MaintenanceWindow:
+      type: object
+      properties:
+        uuid:
+          type: string
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+          - scheduled
+          - in_progress
+          - completed
+        starts_at:
+          type: string
+          format: date-time
+        ends_at:
+          type: string
+          format: date-time
+        monitors:
+          type: array
+          items:
+            type: string
+        notify_subscribers:
+          type: boolean
+    MaintenanceWindowInput:
+      type: object
+      required:
+      - title
+      - starts_at
+      - ends_at
+      properties:
+        title:
+          type: string
+        starts_at:
+          type: string
+          format: date-time
+        ends_at:
+          type: string
+          format: date-time
+        monitors:
+          type: array
+          items:
+            type: string
+        notify_subscribers:
+          type: boolean
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'

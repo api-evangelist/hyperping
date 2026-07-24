@@ -1,0 +1,86 @@
+openapi: 3.0.1
+info:
+  title: Hyperping Healthchecks Reports API
+  description: REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.
+  termsOfService: https://hyperping.com/terms
+  contact:
+    name: Hyperping Support
+    email: hello@hyperping.io
+  version: '1.0'
+servers:
+- url: https://api.hyperping.io/v1
+  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+security:
+- bearerAuth: []
+tags:
+- name: Reports
+  description: Uptime, SLA, and MTTR reporting for monitors.
+paths:
+  /reporting/monitor-reports:
+    servers:
+    - url: https://api.hyperping.io/v2
+    get:
+      operationId: listMonitorReports
+      tags:
+      - Reports
+      summary: Get reports for all monitors
+      responses:
+        '200':
+          description: Monitor reports including SLA, MTTR, and outages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MonitorReport'
+  /reporting/monitor-reports/{monitor_uuid}:
+    servers:
+    - url: https://api.hyperping.io/v2
+    parameters:
+    - $ref: '#/components/parameters/MonitorUuid'
+    get:
+      operationId: getMonitorReport
+      tags:
+      - Reports
+      summary: Get a report for a specific monitor
+      responses:
+        '200':
+          description: The monitor report.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitorReport'
+components:
+  schemas:
+    MonitorReport:
+      type: object
+      properties:
+        monitor_uuid:
+          type: string
+        sla:
+          type: number
+          format: float
+          description: SLA / uptime percentage over the report period.
+        mttr:
+          type: integer
+          description: Mean time to recovery in seconds.
+        outages:
+          type: integer
+          description: Number of outages in the report period.
+        response_time_avg:
+          type: number
+          format: float
+          description: Average response time in milliseconds.
+  parameters:
+    MonitorUuid:
+      name: monitor_uuid
+      in: path
+      required: true
+      description: The unique identifier of the monitor.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'

@@ -1,0 +1,184 @@
+openapi: 3.0.1
+info:
+  title: Hyperping Healthchecks API
+  description: REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.
+  termsOfService: https://hyperping.com/terms
+  contact:
+    name: Hyperping Support
+    email: hello@hyperping.io
+  version: '1.0'
+servers:
+- url: https://api.hyperping.io/v1
+  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+security:
+- bearerAuth: []
+tags:
+- name: Healthchecks
+  description: Cron-style monitors that expect periodic pings from scheduled tasks.
+paths:
+  /healthchecks:
+    servers:
+    - url: https://api.hyperping.io/v2
+    get:
+      operationId: listHealthchecks
+      tags:
+      - Healthchecks
+      summary: List all healthchecks
+      responses:
+        '200':
+          description: A list of healthchecks.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Healthcheck'
+    post:
+      operationId: createHealthcheck
+      tags:
+      - Healthchecks
+      summary: Create a new healthcheck
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HealthcheckInput'
+      responses:
+        '201':
+          description: The created healthcheck.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Healthcheck'
+  /healthchecks/{healthcheck_uuid}:
+    servers:
+    - url: https://api.hyperping.io/v2
+    parameters:
+    - $ref: '#/components/parameters/HealthcheckUuid'
+    get:
+      operationId: getHealthcheck
+      tags:
+      - Healthchecks
+      summary: Retrieve a healthcheck
+      responses:
+        '200':
+          description: The requested healthcheck.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Healthcheck'
+    put:
+      operationId: updateHealthcheck
+      tags:
+      - Healthchecks
+      summary: Update a healthcheck
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HealthcheckInput'
+      responses:
+        '200':
+          description: The updated healthcheck.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Healthcheck'
+    delete:
+      operationId: deleteHealthcheck
+      tags:
+      - Healthchecks
+      summary: Delete a healthcheck
+      responses:
+        '204':
+          description: The healthcheck was deleted.
+  /healthchecks/{healthcheck_uuid}/pause:
+    servers:
+    - url: https://api.hyperping.io/v2
+    parameters:
+    - $ref: '#/components/parameters/HealthcheckUuid'
+    post:
+      operationId: pauseHealthcheck
+      tags:
+      - Healthchecks
+      summary: Pause a healthcheck
+      responses:
+        '200':
+          description: The paused healthcheck.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Healthcheck'
+  /healthchecks/{healthcheck_uuid}/resume:
+    servers:
+    - url: https://api.hyperping.io/v2
+    parameters:
+    - $ref: '#/components/parameters/HealthcheckUuid'
+    post:
+      operationId: resumeHealthcheck
+      tags:
+      - Healthchecks
+      summary: Resume a healthcheck
+      responses:
+        '200':
+          description: The resumed healthcheck.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Healthcheck'
+components:
+  schemas:
+    Healthcheck:
+      type: object
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        period:
+          type: integer
+          description: Expected ping period in seconds.
+        grace:
+          type: integer
+          description: Grace period in seconds before alerting.
+        status:
+          type: string
+          enum:
+          - up
+          - down
+          - paused
+        last_ping_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    HealthcheckInput:
+      type: object
+      required:
+      - name
+      - period
+      properties:
+        name:
+          type: string
+        period:
+          type: integer
+          description: Expected ping period in seconds.
+        grace:
+          type: integer
+          description: Grace period in seconds before alerting.
+  parameters:
+    HealthcheckUuid:
+      name: healthcheck_uuid
+      in: path
+      required: true
+      description: The unique identifier of the healthcheck.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'

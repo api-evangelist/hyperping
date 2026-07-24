@@ -1,0 +1,74 @@
+openapi: 3.0.1
+info:
+  title: Hyperping Healthchecks Status Pages API
+  description: REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.
+  termsOfService: https://hyperping.com/terms
+  contact:
+    name: Hyperping Support
+    email: hello@hyperping.io
+  version: '1.0'
+servers:
+- url: https://api.hyperping.io/v1
+  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+security:
+- bearerAuth: []
+tags:
+- name: Status Pages
+  description: Public machine-readable status feed for a status page.
+paths:
+  /{subdomain}/status.json:
+    parameters:
+    - name: subdomain
+      in: path
+      required: true
+      description: The status page host (e.g. yourdomain.hyperping.io).
+      schema:
+        type: string
+    get:
+      operationId: getStatusPageJson
+      tags:
+      - Status Pages
+      summary: Get the public status feed for a status page
+      description: Returns the current overall status and per-service uptime for an active status page in a machine-readable form. Available only on active status pages.
+      security: []
+      responses:
+        '200':
+          description: The status page status feed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusPage'
+components:
+  schemas:
+    StatusPage:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        status:
+          type: string
+          description: Overall status indicator for the page.
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusPageService'
+    StatusPageService:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        operational:
+          type: boolean
+        uptime:
+          type: number
+          format: float
+          description: Uptime percentage.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'

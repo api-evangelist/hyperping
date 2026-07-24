@@ -1,0 +1,185 @@
+openapi: 3.0.1
+info:
+  title: Hyperping Healthchecks Monitors API
+  description: REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.
+  termsOfService: https://hyperping.com/terms
+  contact:
+    name: Hyperping Support
+    email: hello@hyperping.io
+  version: '1.0'
+servers:
+- url: https://api.hyperping.io/v1
+  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+security:
+- bearerAuth: []
+tags:
+- name: Monitors
+  description: Create, retrieve, update, and delete uptime monitors.
+paths:
+  /monitors:
+    get:
+      operationId: listMonitors
+      tags:
+      - Monitors
+      summary: List all monitors
+      responses:
+        '200':
+          description: A list of monitors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Monitor'
+    post:
+      operationId: createMonitor
+      tags:
+      - Monitors
+      summary: Create a new monitor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonitorInput'
+      responses:
+        '201':
+          description: The created monitor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Monitor'
+  /monitors/{monitor_uuid}:
+    parameters:
+    - $ref: '#/components/parameters/MonitorUuid'
+    get:
+      operationId: getMonitor
+      tags:
+      - Monitors
+      summary: Retrieve a monitor
+      responses:
+        '200':
+          description: The requested monitor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Monitor'
+    put:
+      operationId: updateMonitor
+      tags:
+      - Monitors
+      summary: Update a monitor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonitorInput'
+      responses:
+        '200':
+          description: The updated monitor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Monitor'
+    delete:
+      operationId: deleteMonitor
+      tags:
+      - Monitors
+      summary: Delete a monitor
+      responses:
+        '204':
+          description: The monitor was deleted.
+components:
+  schemas:
+    Monitor:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: Unique identifier of the monitor.
+        name:
+          type: string
+        url:
+          type: string
+          description: The target URL or host being monitored.
+        type:
+          type: string
+          description: Monitor type.
+          enum:
+          - http
+          - ping
+          - port
+          - keyword
+          - dns
+          - browser
+        protocol:
+          type: string
+        port:
+          type: integer
+        interval:
+          type: integer
+          description: Check interval in seconds.
+        regions:
+          type: array
+          description: Monitoring regions the check runs from.
+          items:
+            type: string
+        paused:
+          type: boolean
+        status:
+          type: string
+          description: Current monitor status.
+          enum:
+          - up
+          - down
+          - paused
+        created_at:
+          type: string
+          format: date-time
+    MonitorInput:
+      type: object
+      required:
+      - url
+      - type
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        type:
+          type: string
+          enum:
+          - http
+          - ping
+          - port
+          - keyword
+          - dns
+          - browser
+        protocol:
+          type: string
+        port:
+          type: integer
+        interval:
+          type: integer
+          description: Check interval in seconds.
+        regions:
+          type: array
+          items:
+            type: string
+        keyword:
+          type: string
+          description: Keyword to match in the response body (keyword monitors).
+  parameters:
+    MonitorUuid:
+      name: monitor_uuid
+      in: path
+      required: true
+      description: The unique identifier of the monitor.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'

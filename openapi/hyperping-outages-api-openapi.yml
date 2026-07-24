@@ -1,0 +1,193 @@
+openapi: 3.0.1
+info:
+  title: Hyperping Healthchecks Outages API
+  description: REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.
+  termsOfService: https://hyperping.com/terms
+  contact:
+    name: Hyperping Support
+    email: hello@hyperping.io
+  version: '1.0'
+servers:
+- url: https://api.hyperping.io/v1
+  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+security:
+- bearerAuth: []
+tags:
+- name: Outages
+  description: On-call outage acknowledgement, resolution, and escalation.
+paths:
+  /outages:
+    servers:
+    - url: https://api.hyperping.io/v2
+    get:
+      operationId: listOutages
+      tags:
+      - Outages
+      summary: List all outages
+      responses:
+        '200':
+          description: A list of outages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Outage'
+    post:
+      operationId: createOutage
+      tags:
+      - Outages
+      summary: Create a manual outage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutageInput'
+      responses:
+        '201':
+          description: The created outage.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outage'
+  /outages/{outage_uuid}:
+    servers:
+    - url: https://api.hyperping.io/v2
+    parameters:
+    - $ref: '#/components/parameters/OutageUuid'
+    get:
+      operationId: getOutage
+      tags:
+      - Outages
+      summary: Retrieve an outage
+      responses:
+        '200':
+          description: The requested outage.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outage'
+    delete:
+      operationId: deleteOutage
+      tags:
+      - Outages
+      summary: Delete a manual outage
+      responses:
+        '204':
+          description: The outage was deleted.
+  /outages/{outage_uuid}/acknowledge:
+    servers:
+    - url: https://api.hyperping.io/v2
+    parameters:
+    - $ref: '#/components/parameters/OutageUuid'
+    post:
+      operationId: acknowledgeOutage
+      tags:
+      - Outages
+      summary: Acknowledge an outage
+      responses:
+        '200':
+          description: The acknowledged outage.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outage'
+  /outages/{outage_uuid}/unacknowledge:
+    servers:
+    - url: https://api.hyperping.io/v2
+    parameters:
+    - $ref: '#/components/parameters/OutageUuid'
+    post:
+      operationId: unacknowledgeOutage
+      tags:
+      - Outages
+      summary: Remove acknowledgement from an outage
+      responses:
+        '200':
+          description: The unacknowledged outage.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outage'
+  /outages/{outage_uuid}/resolve:
+    servers:
+    - url: https://api.hyperping.io/v2
+    parameters:
+    - $ref: '#/components/parameters/OutageUuid'
+    post:
+      operationId: resolveOutage
+      tags:
+      - Outages
+      summary: Resolve an outage
+      responses:
+        '200':
+          description: The resolved outage.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outage'
+  /outages/{outage_uuid}/escalate:
+    servers:
+    - url: https://api.hyperping.io/v2
+    parameters:
+    - $ref: '#/components/parameters/OutageUuid'
+    post:
+      operationId: escalateOutage
+      tags:
+      - Outages
+      summary: Escalate an outage to team members
+      responses:
+        '200':
+          description: The escalated outage.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outage'
+components:
+  schemas:
+    OutageInput:
+      type: object
+      properties:
+        monitor_uuid:
+          type: string
+        title:
+          type: string
+        message:
+          type: string
+    Outage:
+      type: object
+      properties:
+        uuid:
+          type: string
+        monitor_uuid:
+          type: string
+        type:
+          type: string
+          description: Outage origin.
+          enum:
+          - monitor
+          - manual
+        acknowledged:
+          type: boolean
+        resolved:
+          type: boolean
+        started_at:
+          type: string
+          format: date-time
+        resolved_at:
+          type: string
+          format: date-time
+  parameters:
+    OutageUuid:
+      name: outage_uuid
+      in: path
+      required: true
+      description: The unique identifier of the outage.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'
