@@ -7,7 +7,20 @@ description: Hyperping is an uptime monitoring and status page platform. Its RES
   monitors, run scheduled-task healthchecks, operate public status pages through
   incidents and maintenance windows, manage on-call outages, and pull uptime and
   SLA reporting.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/hyperping.png
 tags:
 - Uptime Monitoring
 - Status Pages
@@ -18,91 +31,188 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.19'
 apis:
-- aid: hyperping:monitors
-  name: Hyperping Monitors API
-  tags:
-  - Monitors
-  - Uptime Monitoring
-  - Healthchecks
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: hyperping:hyperping-healthchecks-api
+  name: Hyperping Healthchecks API
+  description: Cron-style monitors that expect periodic pings from scheduled tasks.
   humanURL: https://hyperping.com/docs/api/monitors
   baseURL: https://api.hyperping.io/v1
-  properties:
-  - url: https://hyperping.com/docs/api/monitors
-    type: Documentation
-  - url: https://hyperping.com/docs/api/monitors
-    type: APIReference
-  - url: openapi/hyperping-openapi.yml
-    type: OpenAPI
-  - url: collections/hyperping.postman_collection.json
-    type: PostmanCollection
-  - url: collections/hyperping.opencollection.json
-    type: OpenCollection
-  description: Programmatically create, list, retrieve, update, and delete HTTP, ping,
-    port, keyword, DNS, and browser monitors, plus cron-style healthchecks for
-    scheduled tasks and background jobs, and pull uptime / SLA / MTTR reporting.
-- aid: hyperping:status-pages
-  name: Hyperping Status Pages API
   tags:
-  - Status Pages
-  - Public Status
-  - JSON
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://hyperping.com/docs/status-page/status-page-json
-  baseURL: https://api.hyperping.io/v1
+  - Healthchecks
   properties:
-  - url: https://hyperping.com/docs/status-page/status-page-json
-    type: Documentation
-  - url: openapi/hyperping-openapi.yml
-    type: OpenAPI
-  - url: collections/hyperping.postman_collection.json
-    type: PostmanCollection
-  - url: collections/hyperping.opencollection.json
-    type: OpenCollection
-  description: Public machine-readable status feed exposing a status page's overall
-    status indicator plus per-service operational state and uptime via the
-    /{subdomain}/status.json endpoint for dashboards and internal tooling.
-- aid: hyperping:incidents
+  - type: OpenAPI
+    url: openapi/hyperping-healthchecks-api-openapi.yml
+  - type: Documentation
+    url: https://hyperping.com/docs/api/monitors
+  - type: APIReference
+    url: https://hyperping.com/docs/api/monitors
+  - type: PostmanCollection
+    url: collections/hyperping.postman_collection.json
+  - type: OpenCollection
+    url: collections/hyperping.opencollection.json
+  - type: Documentation
+    url: https://hyperping.com/docs/status-page/status-page-json
+  - type: Documentation
+    url: https://hyperping.com/docs/api/incidents
+  - type: APIReference
+    url: https://hyperping.com/docs/api/incidents
+  - type: Documentation
+    url: https://hyperping.com/docs/integrations/webhooks
+- aid: hyperping:hyperping-incidents-api
   name: Hyperping Incidents API
+  description: Status page incident lifecycle and updates.
+  humanURL: https://hyperping.com/docs/api/monitors
+  baseURL: https://api.hyperping.io/v1
   tags:
   - Incidents
-  - Maintenance
-  - Outages
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://hyperping.com/docs/api/incidents
-  baseURL: https://api.hyperping.io/v1
   properties:
-  - url: https://hyperping.com/docs/api/incidents
-    type: Documentation
-  - url: https://hyperping.com/docs/api/incidents
-    type: APIReference
-  - url: openapi/hyperping-openapi.yml
-    type: OpenAPI
-  - url: collections/hyperping.postman_collection.json
-    type: PostmanCollection
-  - url: collections/hyperping.opencollection.json
-    type: OpenCollection
-  description: Manage the full incident lifecycle on status pages (investigating,
-    identified, monitoring, resolved) with threaded updates, schedule and complete
-    maintenance windows, and acknowledge, resolve, or escalate on-call outages.
-- aid: hyperping:webhooks
-  name: Hyperping Webhooks
+  - type: OpenAPI
+    url: openapi/hyperping-incidents-api-openapi.yml
+  - type: Documentation
+    url: https://hyperping.com/docs/api/monitors
+  - type: APIReference
+    url: https://hyperping.com/docs/api/monitors
+  - type: PostmanCollection
+    url: collections/hyperping.postman_collection.json
+  - type: OpenCollection
+    url: collections/hyperping.opencollection.json
+  - type: Documentation
+    url: https://hyperping.com/docs/status-page/status-page-json
+  - type: Documentation
+    url: https://hyperping.com/docs/api/incidents
+  - type: APIReference
+    url: https://hyperping.com/docs/api/incidents
+  - type: Documentation
+    url: https://hyperping.com/docs/integrations/webhooks
+- aid: hyperping:hyperping-maintenance-api
+  name: Hyperping Maintenance API
+  description: Scheduled maintenance windows.
+  humanURL: https://hyperping.com/docs/api/monitors
+  baseURL: https://api.hyperping.io/v1
   tags:
-  - Webhooks
-  - Events
-  - Notifications
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://hyperping.com/docs/integrations/webhooks
-  baseURL: https://api.hyperping.io/v1
+  - Maintenance
   properties:
-  - url: https://hyperping.com/docs/integrations/webhooks
-    type: Documentation
-  - url: openapi/hyperping-openapi.yml
-    type: OpenAPI
-  description: Outbound event notifications delivering check.down and check.up
-    payloads - including monitor UUID, status code, downtime duration, and
-    multi-region ping results - to a configured webhook URL for incident
-    automation.
+  - type: OpenAPI
+    url: openapi/hyperping-maintenance-api-openapi.yml
+  - type: Documentation
+    url: https://hyperping.com/docs/api/monitors
+  - type: APIReference
+    url: https://hyperping.com/docs/api/monitors
+  - type: PostmanCollection
+    url: collections/hyperping.postman_collection.json
+  - type: OpenCollection
+    url: collections/hyperping.opencollection.json
+  - type: Documentation
+    url: https://hyperping.com/docs/status-page/status-page-json
+  - type: Documentation
+    url: https://hyperping.com/docs/api/incidents
+  - type: APIReference
+    url: https://hyperping.com/docs/api/incidents
+  - type: Documentation
+    url: https://hyperping.com/docs/integrations/webhooks
+- aid: hyperping:hyperping-monitors-api
+  name: Hyperping Monitors API
+  description: Create, retrieve, update, and delete uptime monitors.
+  humanURL: https://hyperping.com/docs/api/monitors
+  baseURL: https://api.hyperping.io/v1
+  tags:
+  - Monitors
+  properties:
+  - type: OpenAPI
+    url: openapi/hyperping-monitors-api-openapi.yml
+  - type: Documentation
+    url: https://hyperping.com/docs/api/monitors
+  - type: APIReference
+    url: https://hyperping.com/docs/api/monitors
+  - type: PostmanCollection
+    url: collections/hyperping.postman_collection.json
+  - type: OpenCollection
+    url: collections/hyperping.opencollection.json
+  - type: Documentation
+    url: https://hyperping.com/docs/status-page/status-page-json
+  - type: Documentation
+    url: https://hyperping.com/docs/api/incidents
+  - type: APIReference
+    url: https://hyperping.com/docs/api/incidents
+  - type: Documentation
+    url: https://hyperping.com/docs/integrations/webhooks
+- aid: hyperping:hyperping-outages-api
+  name: Hyperping Outages API
+  description: On-call outage acknowledgement, resolution, and escalation.
+  humanURL: https://hyperping.com/docs/api/monitors
+  baseURL: https://api.hyperping.io/v1
+  tags:
+  - Outages
+  properties:
+  - type: OpenAPI
+    url: openapi/hyperping-outages-api-openapi.yml
+  - type: Documentation
+    url: https://hyperping.com/docs/api/monitors
+  - type: APIReference
+    url: https://hyperping.com/docs/api/monitors
+  - type: PostmanCollection
+    url: collections/hyperping.postman_collection.json
+  - type: OpenCollection
+    url: collections/hyperping.opencollection.json
+  - type: Documentation
+    url: https://hyperping.com/docs/status-page/status-page-json
+  - type: Documentation
+    url: https://hyperping.com/docs/api/incidents
+  - type: APIReference
+    url: https://hyperping.com/docs/api/incidents
+  - type: Documentation
+    url: https://hyperping.com/docs/integrations/webhooks
+- aid: hyperping:hyperping-reports-api
+  name: Hyperping Reports API
+  description: Uptime, SLA, and MTTR reporting for monitors.
+  humanURL: https://hyperping.com/docs/api/monitors
+  baseURL: https://api.hyperping.io/v1
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/hyperping-reports-api-openapi.yml
+  - type: Documentation
+    url: https://hyperping.com/docs/api/monitors
+  - type: APIReference
+    url: https://hyperping.com/docs/api/monitors
+  - type: PostmanCollection
+    url: collections/hyperping.postman_collection.json
+  - type: OpenCollection
+    url: collections/hyperping.opencollection.json
+  - type: Documentation
+    url: https://hyperping.com/docs/status-page/status-page-json
+  - type: Documentation
+    url: https://hyperping.com/docs/api/incidents
+  - type: APIReference
+    url: https://hyperping.com/docs/api/incidents
+  - type: Documentation
+    url: https://hyperping.com/docs/integrations/webhooks
+- aid: hyperping:hyperping-status-pages-api
+  name: Hyperping Status Pages API
+  description: Public machine-readable status feed for a status page.
+  humanURL: https://hyperping.com/docs/api/monitors
+  baseURL: https://api.hyperping.io/v1
+  tags:
+  - Status Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/hyperping-status-pages-api-openapi.yml
+  - type: Documentation
+    url: https://hyperping.com/docs/api/monitors
+  - type: APIReference
+    url: https://hyperping.com/docs/api/monitors
+  - type: PostmanCollection
+    url: collections/hyperping.postman_collection.json
+  - type: OpenCollection
+    url: collections/hyperping.opencollection.json
+  - type: Documentation
+    url: https://hyperping.com/docs/status-page/status-page-json
+  - type: Documentation
+    url: https://hyperping.com/docs/api/incidents
+  - type: APIReference
+    url: https://hyperping.com/docs/api/incidents
+  - type: Documentation
+    url: https://hyperping.com/docs/integrations/webhooks
 common:
 - type: AgenticAccess
   url: agentic-access/hyperping-agentic-access.yml
