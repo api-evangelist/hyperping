@@ -1,0 +1,26 @@
+{
+  "provider": "hyperping",
+  "sources": [
+    "hyperping-healthchecks-api-openapi.yml",
+    "hyperping-incidents-api-openapi.yml",
+    "hyperping-maintenance-api-openapi.yml",
+    "hyperping-monitors-api-openapi.yml",
+    "hyperping-outages-api-openapi.yml",
+    "hyperping-reports-api-openapi.yml",
+    "hyperping-status-pages-api-openapi.yml"
+  ],
+  "outputs": [
+    "hyperping-healthchecks-api-openapi.yml",
+    "hyperping-incidents-api-openapi.yml",
+    "hyperping-maintenance-api-openapi.yml",
+    "hyperping-monitors-api-openapi.yml",
+    "hyperping-outages-api-openapi.yml",
+    "hyperping-reports-api-openapi.yml",
+    "hyperping-status-pages-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
