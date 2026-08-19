@@ -1,0 +1,798 @@
+{
+  "item": [
+    {
+      "id": "08ec2741-a0c5-4dcc-ad7c-b68b4164d059",
+      "name": "Outages",
+      "description": {
+        "content": "On-call outage acknowledgement, resolution, and escalation.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2d9c8c77-b6c9-479b-aaab-01bf0111d7b2",
+          "name": "List all outages",
+          "request": {
+            "name": "List all outages",
+            "description": {},
+            "url": {
+              "path": [
+                "outages"
+              ],
+              "host": [
+                "{{outages-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6d0af4cb-8534-4661-a4e0-549f338d6f25",
+              "name": "A list of outages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outages"
+                  ],
+                  "host": [
+                    "{{outages-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"uuid\": \"string\",\n    \"monitor_uuid\": \"string\",\n    \"type\": \"manual\",\n    \"acknowledged\": false,\n    \"resolved\": true,\n    \"started_at\": \"1985-08-08T19:10:34.363Z\",\n    \"resolved_at\": \"1997-09-13T22:51:41.291Z\"\n  },\n  {\n    \"uuid\": \"string\",\n    \"monitor_uuid\": \"string\",\n    \"type\": \"monitor\",\n    \"acknowledged\": true,\n    \"resolved\": true,\n    \"started_at\": \"1961-04-18T13:22:04.383Z\",\n    \"resolved_at\": \"1947-04-19T10:44:04.944Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d304954-bc76-4919-b8a5-2e1a5ff96d57",
+          "name": "Create a manual outage",
+          "request": {
+            "name": "Create a manual outage",
+            "description": {},
+            "url": {
+              "path": [
+                "outages"
+              ],
+              "host": [
+                "{{outages-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"monitor_uuid\": \"<string>\",\n  \"title\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0dfac02e-14f0-416d-92d3-5a9d0935b0ef",
+              "name": "The created outage.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outages"
+                  ],
+                  "host": [
+                    "{{outages-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"monitor_uuid\": \"<string>\",\n  \"title\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"monitor_uuid\": \"string\",\n  \"type\": \"monitor\",\n  \"acknowledged\": false,\n  \"resolved\": false,\n  \"started_at\": \"1986-04-27T17:19:22.620Z\",\n  \"resolved_at\": \"2020-09-24T22:27:17.201Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a714d0df-444d-49f5-8080-ce4b5335dfe1",
+          "name": "Retrieve an outage",
+          "request": {
+            "name": "Retrieve an outage",
+            "description": {},
+            "url": {
+              "path": [
+                "outages",
+                ":outage_uuid"
+              ],
+              "host": [
+                "{{outages-outage_uuid-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "outage_uuid",
+                  "description": "(Required) The unique identifier of the outage."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d1713a34-6046-464c-ae8b-f75e1724b5ab",
+              "name": "The requested outage.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outages",
+                    ":outage_uuid"
+                  ],
+                  "host": [
+                    "{{outages-outage_uuid-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "outage_uuid",
+                      "description": "(Required) The unique identifier of the outage."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"monitor_uuid\": \"string\",\n  \"type\": \"monitor\",\n  \"acknowledged\": false,\n  \"resolved\": false,\n  \"started_at\": \"1986-04-27T17:19:22.620Z\",\n  \"resolved_at\": \"2020-09-24T22:27:17.201Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8937afc-d74b-40ac-b446-d9741cc0d49a",
+          "name": "Delete a manual outage",
+          "request": {
+            "name": "Delete a manual outage",
+            "description": {},
+            "url": {
+              "path": [
+                "outages",
+                ":outage_uuid"
+              ],
+              "host": [
+                "{{outages-outage_uuid-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "outage_uuid",
+                  "description": "(Required) The unique identifier of the outage."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80d60864-c525-4f3e-94b6-f6fd39f6560c",
+              "name": "The outage was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outages",
+                    ":outage_uuid"
+                  ],
+                  "host": [
+                    "{{outages-outage_uuid-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "outage_uuid",
+                      "description": "(Required) The unique identifier of the outage."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a629f4b-1c74-43a8-8596-b4c2ddbf4ef3",
+          "name": "Acknowledge an outage",
+          "request": {
+            "name": "Acknowledge an outage",
+            "description": {},
+            "url": {
+              "path": [
+                "outages",
+                ":outage_uuid",
+                "acknowledge"
+              ],
+              "host": [
+                "{{outages-outage_uuid-acknowledge-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "outage_uuid",
+                  "description": "(Required) The unique identifier of the outage."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b5f7b642-f5c6-4cb3-8f8b-b71d78d014ff",
+              "name": "The acknowledged outage.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outages",
+                    ":outage_uuid",
+                    "acknowledge"
+                  ],
+                  "host": [
+                    "{{outages-outage_uuid-acknowledge-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "outage_uuid",
+                      "description": "(Required) The unique identifier of the outage."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"monitor_uuid\": \"string\",\n  \"type\": \"monitor\",\n  \"acknowledged\": false,\n  \"resolved\": false,\n  \"started_at\": \"1986-04-27T17:19:22.620Z\",\n  \"resolved_at\": \"2020-09-24T22:27:17.201Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1d54c49-b155-467a-b9d1-8f64c9f47491",
+          "name": "Remove acknowledgement from an outage",
+          "request": {
+            "name": "Remove acknowledgement from an outage",
+            "description": {},
+            "url": {
+              "path": [
+                "outages",
+                ":outage_uuid",
+                "unacknowledge"
+              ],
+              "host": [
+                "{{outages-outage_uuid-unacknowledge-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "outage_uuid",
+                  "description": "(Required) The unique identifier of the outage."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "58f13c63-e23a-44d5-9e6e-f700ee66acfc",
+              "name": "The unacknowledged outage.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outages",
+                    ":outage_uuid",
+                    "unacknowledge"
+                  ],
+                  "host": [
+                    "{{outages-outage_uuid-unacknowledge-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "outage_uuid",
+                      "description": "(Required) The unique identifier of the outage."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"monitor_uuid\": \"string\",\n  \"type\": \"monitor\",\n  \"acknowledged\": false,\n  \"resolved\": false,\n  \"started_at\": \"1986-04-27T17:19:22.620Z\",\n  \"resolved_at\": \"2020-09-24T22:27:17.201Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b529f99-22b8-481a-81bc-19bcef299438",
+          "name": "Resolve an outage",
+          "request": {
+            "name": "Resolve an outage",
+            "description": {},
+            "url": {
+              "path": [
+                "outages",
+                ":outage_uuid",
+                "resolve"
+              ],
+              "host": [
+                "{{outages-outage_uuid-resolve-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "outage_uuid",
+                  "description": "(Required) The unique identifier of the outage."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b47678e-6110-4e26-aa0e-e2d49f0ea1d2",
+              "name": "The resolved outage.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outages",
+                    ":outage_uuid",
+                    "resolve"
+                  ],
+                  "host": [
+                    "{{outages-outage_uuid-resolve-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "outage_uuid",
+                      "description": "(Required) The unique identifier of the outage."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"monitor_uuid\": \"string\",\n  \"type\": \"monitor\",\n  \"acknowledged\": false,\n  \"resolved\": false,\n  \"started_at\": \"1986-04-27T17:19:22.620Z\",\n  \"resolved_at\": \"2020-09-24T22:27:17.201Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb90de0f-538e-422c-a06e-ed7f2c5ad645",
+          "name": "Escalate an outage to team members",
+          "request": {
+            "name": "Escalate an outage to team members",
+            "description": {},
+            "url": {
+              "path": [
+                "outages",
+                ":outage_uuid",
+                "escalate"
+              ],
+              "host": [
+                "{{outages-outage_uuid-escalate-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "outage_uuid",
+                  "description": "(Required) The unique identifier of the outage."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa0a1427-6c99-443a-9381-4fee73ab76b0",
+              "name": "The escalated outage.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outages",
+                    ":outage_uuid",
+                    "escalate"
+                  ],
+                  "host": [
+                    "{{outages-outage_uuid-escalate-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "outage_uuid",
+                      "description": "(Required) The unique identifier of the outage."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"monitor_uuid\": \"string\",\n  \"type\": \"monitor\",\n  \"acknowledged\": false,\n  \"resolved\": false,\n  \"started_at\": \"1986-04-27T17:19:22.620Z\",\n  \"resolved_at\": \"2020-09-24T22:27:17.201Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "outages-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "outages-outage_uuid-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "outages-outage_uuid-acknowledge-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "outages-outage_uuid-unacknowledge-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "outages-outage_uuid-resolve-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "outages-outage_uuid-escalate-Url"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e75e0f79-d53f-482c-95e8-349a2dc600cb",
+    "name": "Hyperping Healthchecks Outages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.\n\nContact Support:\n Name: Hyperping Support\n Email: hello@hyperping.io",
+      "type": "text/plain"
+    }
+  }
+}

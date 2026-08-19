@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hyperping Healthchecks Maintenance API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Maintenance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all maintenance windows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/maintenance-windows"
+          },
+          "docs": "List all maintenance windows"
+        },
+        {
+          "info": {
+            "name": "Create a maintenance window",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/maintenance-windows",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a maintenance window"
+        },
+        {
+          "info": {
+            "name": "Retrieve a maintenance window",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/maintenance-windows/:maintenance_uuid",
+            "params": [
+              {
+                "name": "maintenance_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the maintenance window."
+              }
+            ]
+          },
+          "docs": "Retrieve a maintenance window"
+        },
+        {
+          "info": {
+            "name": "Update a maintenance window",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.hyperping.io/v1/maintenance-windows/:maintenance_uuid",
+            "params": [
+              {
+                "name": "maintenance_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the maintenance window."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a maintenance window"
+        },
+        {
+          "info": {
+            "name": "Delete a maintenance window",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hyperping.io/v1/maintenance-windows/:maintenance_uuid",
+            "params": [
+              {
+                "name": "maintenance_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the maintenance window."
+              }
+            ]
+          },
+          "docs": "Delete a maintenance window"
+        },
+        {
+          "info": {
+            "name": "Mark a maintenance window as completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/maintenance-windows/:maintenance_uuid/complete",
+            "params": [
+              {
+                "name": "maintenance_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the maintenance window."
+              }
+            ]
+          },
+          "docs": "Mark a maintenance window as completed"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

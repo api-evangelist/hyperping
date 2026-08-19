@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hyperping Healthchecks Incidents API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Incidents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all incidents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/incidents"
+          },
+          "docs": "Get all incidents"
+        },
+        {
+          "info": {
+            "name": "Create an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/incidents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an incident"
+        },
+        {
+          "info": {
+            "name": "Get an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/incidents/:incident_uuid",
+            "params": [
+              {
+                "name": "incident_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the incident."
+              }
+            ]
+          },
+          "docs": "Get an incident"
+        },
+        {
+          "info": {
+            "name": "Update an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.hyperping.io/v1/incidents/:incident_uuid",
+            "params": [
+              {
+                "name": "incident_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the incident."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an incident"
+        },
+        {
+          "info": {
+            "name": "Delete an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hyperping.io/v1/incidents/:incident_uuid",
+            "params": [
+              {
+                "name": "incident_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the incident."
+              }
+            ]
+          },
+          "docs": "Delete an incident"
+        },
+        {
+          "info": {
+            "name": "Add an update to an incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/incidents/:incident_uuid/updates",
+            "params": [
+              {
+                "name": "incident_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the incident."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an update to an incident"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

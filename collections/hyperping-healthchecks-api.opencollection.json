@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hyperping Healthchecks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Healthchecks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all healthchecks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/healthchecks"
+          },
+          "docs": "List all healthchecks"
+        },
+        {
+          "info": {
+            "name": "Create a new healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/healthchecks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new healthcheck"
+        },
+        {
+          "info": {
+            "name": "Retrieve a healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/healthchecks/:healthcheck_uuid",
+            "params": [
+              {
+                "name": "healthcheck_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the healthcheck."
+              }
+            ]
+          },
+          "docs": "Retrieve a healthcheck"
+        },
+        {
+          "info": {
+            "name": "Update a healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.hyperping.io/v1/healthchecks/:healthcheck_uuid",
+            "params": [
+              {
+                "name": "healthcheck_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the healthcheck."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a healthcheck"
+        },
+        {
+          "info": {
+            "name": "Delete a healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hyperping.io/v1/healthchecks/:healthcheck_uuid",
+            "params": [
+              {
+                "name": "healthcheck_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the healthcheck."
+              }
+            ]
+          },
+          "docs": "Delete a healthcheck"
+        },
+        {
+          "info": {
+            "name": "Pause a healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/healthchecks/:healthcheck_uuid/pause",
+            "params": [
+              {
+                "name": "healthcheck_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the healthcheck."
+              }
+            ]
+          },
+          "docs": "Pause a healthcheck"
+        },
+        {
+          "info": {
+            "name": "Resume a healthcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/healthchecks/:healthcheck_uuid/resume",
+            "params": [
+              {
+                "name": "healthcheck_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the healthcheck."
+              }
+            ]
+          },
+          "docs": "Resume a healthcheck"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

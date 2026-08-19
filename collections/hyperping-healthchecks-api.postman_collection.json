@@ -1,0 +1,712 @@
+{
+  "item": [
+    {
+      "id": "e5cace70-26d5-4c1b-84a2-5c53496ed6cf",
+      "name": "Healthchecks",
+      "description": {
+        "content": "Cron-style monitors that expect periodic pings from scheduled tasks.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b5dc0e09-86a5-4926-a6fa-45df80a96053",
+          "name": "List all healthchecks",
+          "request": {
+            "name": "List all healthchecks",
+            "description": {},
+            "url": {
+              "path": [
+                "healthchecks"
+              ],
+              "host": [
+                "{{healthchecks-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f156989-9341-4b2d-a7bc-9e838362c4a8",
+              "name": "A list of healthchecks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthchecks"
+                  ],
+                  "host": [
+                    "{{healthchecks-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"uuid\": \"string\",\n    \"name\": \"string\",\n    \"period\": 4534,\n    \"grace\": 2114,\n    \"status\": \"paused\",\n    \"last_ping_at\": \"1980-10-30T03:32:10.681Z\",\n    \"created_at\": \"2014-07-19T10:02:17.450Z\"\n  },\n  {\n    \"uuid\": \"string\",\n    \"name\": \"string\",\n    \"period\": 6629,\n    \"grace\": 5014,\n    \"status\": \"paused\",\n    \"last_ping_at\": \"1980-08-24T00:53:42.067Z\",\n    \"created_at\": \"2024-04-16T12:33:46.776Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e8a5536-3711-4fcf-8f76-bb533e37e09f",
+          "name": "Create a new healthcheck",
+          "request": {
+            "name": "Create a new healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "healthchecks"
+              ],
+              "host": [
+                "{{healthchecks-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"period\": \"<integer>\",\n  \"grace\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "18ccf3b2-e816-4867-ad46-2982efaf83bd",
+              "name": "The created healthcheck.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthchecks"
+                  ],
+                  "host": [
+                    "{{healthchecks-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"period\": \"<integer>\",\n  \"grace\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"name\": \"string\",\n  \"period\": 9623,\n  \"grace\": 6256,\n  \"status\": \"down\",\n  \"last_ping_at\": \"2014-09-05T09:02:28.404Z\",\n  \"created_at\": \"1975-08-09T20:58:36.871Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03ef2e16-f3a1-44fd-bf71-ecb68b1b39d1",
+          "name": "Retrieve a healthcheck",
+          "request": {
+            "name": "Retrieve a healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "healthchecks",
+                ":healthcheck_uuid"
+              ],
+              "host": [
+                "{{healthchecks-healthcheck_uuid-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "healthcheck_uuid",
+                  "description": "(Required) The unique identifier of the healthcheck."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3351ce53-1f4d-492d-b93a-799c2cbc1659",
+              "name": "The requested healthcheck.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthchecks",
+                    ":healthcheck_uuid"
+                  ],
+                  "host": [
+                    "{{healthchecks-healthcheck_uuid-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "healthcheck_uuid",
+                      "description": "(Required) The unique identifier of the healthcheck."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"name\": \"string\",\n  \"period\": 9623,\n  \"grace\": 6256,\n  \"status\": \"down\",\n  \"last_ping_at\": \"2014-09-05T09:02:28.404Z\",\n  \"created_at\": \"1975-08-09T20:58:36.871Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea3aca17-1651-436d-861b-884c53c9605d",
+          "name": "Update a healthcheck",
+          "request": {
+            "name": "Update a healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "healthchecks",
+                ":healthcheck_uuid"
+              ],
+              "host": [
+                "{{healthchecks-healthcheck_uuid-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "healthcheck_uuid",
+                  "description": "(Required) The unique identifier of the healthcheck."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"period\": \"<integer>\",\n  \"grace\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ecfd37ae-b8bf-4b4c-92ec-f9fc1b102bae",
+              "name": "The updated healthcheck.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthchecks",
+                    ":healthcheck_uuid"
+                  ],
+                  "host": [
+                    "{{healthchecks-healthcheck_uuid-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "healthcheck_uuid",
+                      "description": "(Required) The unique identifier of the healthcheck."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"period\": \"<integer>\",\n  \"grace\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"name\": \"string\",\n  \"period\": 9623,\n  \"grace\": 6256,\n  \"status\": \"down\",\n  \"last_ping_at\": \"2014-09-05T09:02:28.404Z\",\n  \"created_at\": \"1975-08-09T20:58:36.871Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79ad6c9d-2e06-4315-a21e-c77a6a3433bb",
+          "name": "Delete a healthcheck",
+          "request": {
+            "name": "Delete a healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "healthchecks",
+                ":healthcheck_uuid"
+              ],
+              "host": [
+                "{{healthchecks-healthcheck_uuid-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "healthcheck_uuid",
+                  "description": "(Required) The unique identifier of the healthcheck."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0a50d29c-4a5d-40e1-9652-d3eba0ff1eb2",
+              "name": "The healthcheck was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthchecks",
+                    ":healthcheck_uuid"
+                  ],
+                  "host": [
+                    "{{healthchecks-healthcheck_uuid-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "healthcheck_uuid",
+                      "description": "(Required) The unique identifier of the healthcheck."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4535a8bd-00ad-4d03-aec8-0d0d7b7228a8",
+          "name": "Pause a healthcheck",
+          "request": {
+            "name": "Pause a healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "healthchecks",
+                ":healthcheck_uuid",
+                "pause"
+              ],
+              "host": [
+                "{{healthchecks-healthcheck_uuid-pause-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "healthcheck_uuid",
+                  "description": "(Required) The unique identifier of the healthcheck."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34523510-c9db-4b92-baab-2df00bd21387",
+              "name": "The paused healthcheck.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthchecks",
+                    ":healthcheck_uuid",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{healthchecks-healthcheck_uuid-pause-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "healthcheck_uuid",
+                      "description": "(Required) The unique identifier of the healthcheck."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"name\": \"string\",\n  \"period\": 9623,\n  \"grace\": 6256,\n  \"status\": \"down\",\n  \"last_ping_at\": \"2014-09-05T09:02:28.404Z\",\n  \"created_at\": \"1975-08-09T20:58:36.871Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b0086b2-3a41-45a4-9aa1-e51c5524ed3c",
+          "name": "Resume a healthcheck",
+          "request": {
+            "name": "Resume a healthcheck",
+            "description": {},
+            "url": {
+              "path": [
+                "healthchecks",
+                ":healthcheck_uuid",
+                "resume"
+              ],
+              "host": [
+                "{{healthchecks-healthcheck_uuid-resume-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "healthcheck_uuid",
+                  "description": "(Required) The unique identifier of the healthcheck."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6b6ad44a-9e45-401e-80de-0e603380d79c",
+              "name": "The resumed healthcheck.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "healthchecks",
+                    ":healthcheck_uuid",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{healthchecks-healthcheck_uuid-resume-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "healthcheck_uuid",
+                      "description": "(Required) The unique identifier of the healthcheck."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"name\": \"string\",\n  \"period\": 9623,\n  \"grace\": 6256,\n  \"status\": \"down\",\n  \"last_ping_at\": \"2014-09-05T09:02:28.404Z\",\n  \"created_at\": \"1975-08-09T20:58:36.871Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "healthchecks-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "healthchecks-healthcheck_uuid-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "healthchecks-healthcheck_uuid-pause-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "healthchecks-healthcheck_uuid-resume-Url"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a4679e9e-f85d-4b5b-a661-3e61d4531dd0",
+    "name": "Hyperping Healthchecks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.\n\nContact Support:\n Name: Hyperping Support\n Email: hello@hyperping.io",
+      "type": "text/plain"
+    }
+  }
+}

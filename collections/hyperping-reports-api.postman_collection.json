@@ -1,0 +1,223 @@
+{
+  "item": [
+    {
+      "id": "bf7bf1ea-59e0-4942-8762-8a6dbd47d37c",
+      "name": "Reports",
+      "description": {
+        "content": "Uptime, SLA, and MTTR reporting for monitors.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "358376bd-9681-4ed2-9b02-50783fad144a",
+          "name": "Get reports for all monitors",
+          "request": {
+            "name": "Get reports for all monitors",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "monitor-reports"
+              ],
+              "host": [
+                "{{reporting-monitor-reports-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76f500f4-32fe-4ece-a7d2-fe84a8d73b4d",
+              "name": "Monitor reports including SLA, MTTR, and outages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "monitor-reports"
+                  ],
+                  "host": [
+                    "{{reporting-monitor-reports-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"monitor_uuid\": \"string\",\n    \"sla\": 1164.2977044966906,\n    \"mttr\": 8076,\n    \"outages\": 8200,\n    \"response_time_avg\": 8452.863252129191\n  },\n  {\n    \"monitor_uuid\": \"string\",\n    \"sla\": 7977.967367798357,\n    \"mttr\": 133,\n    \"outages\": 7625,\n    \"response_time_avg\": 1169.6563093398026\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fcd13e1a-09f3-4492-98b6-0072041f8b56",
+          "name": "Get a report for a specific monitor",
+          "request": {
+            "name": "Get a report for a specific monitor",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "monitor-reports",
+                ":monitor_uuid"
+              ],
+              "host": [
+                "{{reporting-monitor-reports-monitor_uuid-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "monitor_uuid",
+                  "description": "(Required) The unique identifier of the monitor."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ebe0006-7451-4df1-9a47-54a2de74b7dd",
+              "name": "The monitor report.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "monitor-reports",
+                    ":monitor_uuid"
+                  ],
+                  "host": [
+                    "{{reporting-monitor-reports-monitor_uuid-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_uuid",
+                      "description": "(Required) The unique identifier of the monitor."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"monitor_uuid\": \"string\",\n  \"sla\": 9606.63819222498,\n  \"mttr\": 6225,\n  \"outages\": 6430,\n  \"response_time_avg\": 1755.4827165756992\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "reporting-monitor-reports-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v2",
+      "key": "reporting-monitor-reports-monitor_uuid-Url"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2f75a05e-9a9a-42a2-9e5f-cc392b507726",
+    "name": "Hyperping Healthchecks Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.\n\nContact Support:\n Name: Hyperping Support\n Email: hello@hyperping.io",
+      "type": "text/plain"
+    }
+  }
+}

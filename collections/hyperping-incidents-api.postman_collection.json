@@ -1,0 +1,633 @@
+{
+  "item": [
+    {
+      "id": "87d5a7c7-aed4-46c4-ab4d-1d9b3f8b9e9d",
+      "name": "Incidents",
+      "description": {
+        "content": "Status page incident lifecycle and updates.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2e8cf8ba-6dcd-414f-894b-433a4f21cdef",
+          "name": "Get all incidents",
+          "request": {
+            "name": "Get all incidents",
+            "description": {},
+            "url": {
+              "path": [
+                "incidents"
+              ],
+              "host": [
+                "{{incidents-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2d1ae649-eadc-4d87-b185-9d1e9e26220d",
+              "name": "A list of incidents.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incidents"
+                  ],
+                  "host": [
+                    "{{incidents-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"uuid\": \"string\",\n    \"title\": \"string\",\n    \"status\": \"resolved\",\n    \"impact\": \"string\",\n    \"monitors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updates\": [\n      {\n        \"status\": \"monitoring\",\n        \"message\": \"string\",\n        \"created_at\": \"2002-08-01T17:15:17.847Z\"\n      },\n      {\n        \"status\": \"monitoring\",\n        \"message\": \"string\",\n        \"created_at\": \"1952-06-07T07:25:06.388Z\"\n      }\n    ],\n    \"created_at\": \"1969-12-08T09:21:04.607Z\",\n    \"resolved_at\": \"1998-07-04T20:33:01.935Z\"\n  },\n  {\n    \"uuid\": \"string\",\n    \"title\": \"string\",\n    \"status\": \"monitoring\",\n    \"impact\": \"string\",\n    \"monitors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updates\": [\n      {\n        \"status\": \"monitoring\",\n        \"message\": \"string\",\n        \"created_at\": \"1991-06-18T09:55:33.017Z\"\n      },\n      {\n        \"status\": \"update\",\n        \"message\": \"string\",\n        \"created_at\": \"1967-07-11T18:49:01.504Z\"\n      }\n    ],\n    \"created_at\": \"1957-06-26T09:50:39.040Z\",\n    \"resolved_at\": \"1952-01-24T05:51:30.698Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41ac7c24-4b5a-486c-b09c-fe3fec6c3712",
+          "name": "Create an incident",
+          "request": {
+            "name": "Create an incident",
+            "description": {},
+            "url": {
+              "path": [
+                "incidents"
+              ],
+              "host": [
+                "{{incidents-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"status\": \"<string>\",\n  \"impact\": \"<string>\",\n  \"message\": \"<string>\",\n  \"monitors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "55ee2308-ca15-45a2-9251-9811e4f12630",
+              "name": "The created incident.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incidents"
+                  ],
+                  "host": [
+                    "{{incidents-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"status\": \"<string>\",\n  \"impact\": \"<string>\",\n  \"message\": \"<string>\",\n  \"monitors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"title\": \"string\",\n  \"status\": \"update\",\n  \"impact\": \"string\",\n  \"monitors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"updates\": [\n    {\n      \"status\": \"monitoring\",\n      \"message\": \"string\",\n      \"created_at\": \"1979-05-31T01:40:32.825Z\"\n    },\n    {\n      \"status\": \"identified\",\n      \"message\": \"string\",\n      \"created_at\": \"2018-03-21T11:30:03.527Z\"\n    }\n  ],\n  \"created_at\": \"1956-08-04T04:53:50.367Z\",\n  \"resolved_at\": \"2005-01-28T09:44:56.714Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0add4c9-82d7-4842-9f45-e57162512692",
+          "name": "Get an incident",
+          "request": {
+            "name": "Get an incident",
+            "description": {},
+            "url": {
+              "path": [
+                "incidents",
+                ":incident_uuid"
+              ],
+              "host": [
+                "{{incidents-incident_uuid-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "incident_uuid",
+                  "description": "(Required) The unique identifier of the incident."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f22c66ef-deaf-4cc9-bf5f-5e1794312d92",
+              "name": "The requested incident.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incidents",
+                    ":incident_uuid"
+                  ],
+                  "host": [
+                    "{{incidents-incident_uuid-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "incident_uuid",
+                      "description": "(Required) The unique identifier of the incident."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"title\": \"string\",\n  \"status\": \"update\",\n  \"impact\": \"string\",\n  \"monitors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"updates\": [\n    {\n      \"status\": \"monitoring\",\n      \"message\": \"string\",\n      \"created_at\": \"1979-05-31T01:40:32.825Z\"\n    },\n    {\n      \"status\": \"identified\",\n      \"message\": \"string\",\n      \"created_at\": \"2018-03-21T11:30:03.527Z\"\n    }\n  ],\n  \"created_at\": \"1956-08-04T04:53:50.367Z\",\n  \"resolved_at\": \"2005-01-28T09:44:56.714Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42824741-3a71-4428-b037-d08b04d53ad9",
+          "name": "Update an incident",
+          "request": {
+            "name": "Update an incident",
+            "description": {},
+            "url": {
+              "path": [
+                "incidents",
+                ":incident_uuid"
+              ],
+              "host": [
+                "{{incidents-incident_uuid-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "incident_uuid",
+                  "description": "(Required) The unique identifier of the incident."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"status\": \"<string>\",\n  \"impact\": \"<string>\",\n  \"message\": \"<string>\",\n  \"monitors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "78875360-f618-4d15-bd69-3f775b2bf828",
+              "name": "The updated incident.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incidents",
+                    ":incident_uuid"
+                  ],
+                  "host": [
+                    "{{incidents-incident_uuid-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "incident_uuid",
+                      "description": "(Required) The unique identifier of the incident."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"status\": \"<string>\",\n  \"impact\": \"<string>\",\n  \"message\": \"<string>\",\n  \"monitors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"title\": \"string\",\n  \"status\": \"update\",\n  \"impact\": \"string\",\n  \"monitors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"updates\": [\n    {\n      \"status\": \"monitoring\",\n      \"message\": \"string\",\n      \"created_at\": \"1979-05-31T01:40:32.825Z\"\n    },\n    {\n      \"status\": \"identified\",\n      \"message\": \"string\",\n      \"created_at\": \"2018-03-21T11:30:03.527Z\"\n    }\n  ],\n  \"created_at\": \"1956-08-04T04:53:50.367Z\",\n  \"resolved_at\": \"2005-01-28T09:44:56.714Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af2d76c7-eae3-4af8-be7d-943e5c518906",
+          "name": "Delete an incident",
+          "request": {
+            "name": "Delete an incident",
+            "description": {},
+            "url": {
+              "path": [
+                "incidents",
+                ":incident_uuid"
+              ],
+              "host": [
+                "{{incidents-incident_uuid-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "incident_uuid",
+                  "description": "(Required) The unique identifier of the incident."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a10a1cfe-056a-48a1-b614-f09f370e4161",
+              "name": "The incident was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incidents",
+                    ":incident_uuid"
+                  ],
+                  "host": [
+                    "{{incidents-incident_uuid-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "incident_uuid",
+                      "description": "(Required) The unique identifier of the incident."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b097d66c-e134-4fac-81ae-a7602df9d118",
+          "name": "Add an update to an incident",
+          "request": {
+            "name": "Add an update to an incident",
+            "description": {},
+            "url": {
+              "path": [
+                "incidents",
+                ":incident_uuid",
+                "updates"
+              ],
+              "host": [
+                "{{incidents-incident_uuid-updates-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "incident_uuid",
+                  "description": "(Required) The unique identifier of the incident."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"message\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1d5f4e7f-370f-4b81-a748-a9eaba138f3a",
+              "name": "The created incident update.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incidents",
+                    ":incident_uuid",
+                    "updates"
+                  ],
+                  "host": [
+                    "{{incidents-incident_uuid-updates-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "incident_uuid",
+                      "description": "(Required) The unique identifier of the incident."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"message\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"<string>\",\n  \"message\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v3",
+      "key": "incidents-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v3",
+      "key": "incidents-incident_uuid-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v3",
+      "key": "incidents-incident_uuid-updates-Url"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "47b04cf9-4b0c-4209-919b-0f9b93441c13",
+    "name": "Hyperping Healthchecks Incidents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.\n\nContact Support:\n Name: Hyperping Support\n Email: hello@hyperping.io",
+      "type": "text/plain"
+    }
+  }
+}

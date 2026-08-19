@@ -1,0 +1,164 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hyperping Healthchecks Outages API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Outages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all outages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/outages"
+          },
+          "docs": "List all outages"
+        },
+        {
+          "info": {
+            "name": "Create a manual outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/outages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a manual outage"
+        },
+        {
+          "info": {
+            "name": "Retrieve an outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/outages/:outage_uuid",
+            "params": [
+              {
+                "name": "outage_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the outage."
+              }
+            ]
+          },
+          "docs": "Retrieve an outage"
+        },
+        {
+          "info": {
+            "name": "Delete a manual outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hyperping.io/v1/outages/:outage_uuid",
+            "params": [
+              {
+                "name": "outage_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the outage."
+              }
+            ]
+          },
+          "docs": "Delete a manual outage"
+        },
+        {
+          "info": {
+            "name": "Acknowledge an outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/outages/:outage_uuid/acknowledge",
+            "params": [
+              {
+                "name": "outage_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the outage."
+              }
+            ]
+          },
+          "docs": "Acknowledge an outage"
+        },
+        {
+          "info": {
+            "name": "Remove acknowledgement from an outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/outages/:outage_uuid/unacknowledge",
+            "params": [
+              {
+                "name": "outage_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the outage."
+              }
+            ]
+          },
+          "docs": "Remove acknowledgement from an outage"
+        },
+        {
+          "info": {
+            "name": "Resolve an outage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/outages/:outage_uuid/resolve",
+            "params": [
+              {
+                "name": "outage_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the outage."
+              }
+            ]
+          },
+          "docs": "Resolve an outage"
+        },
+        {
+          "info": {
+            "name": "Escalate an outage to team members",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/outages/:outage_uuid/escalate",
+            "params": [
+              {
+                "name": "outage_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the outage."
+              }
+            ]
+          },
+          "docs": "Escalate an outage to team members"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

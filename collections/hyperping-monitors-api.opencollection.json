@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hyperping Healthchecks Monitors API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all monitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/monitors"
+          },
+          "docs": "List all monitors"
+        },
+        {
+          "info": {
+            "name": "Create a new monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hyperping.io/v1/monitors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new monitor"
+        },
+        {
+          "info": {
+            "name": "Retrieve a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/monitors/:monitor_uuid",
+            "params": [
+              {
+                "name": "monitor_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the monitor."
+              }
+            ]
+          },
+          "docs": "Retrieve a monitor"
+        },
+        {
+          "info": {
+            "name": "Update a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.hyperping.io/v1/monitors/:monitor_uuid",
+            "params": [
+              {
+                "name": "monitor_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the monitor."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a monitor"
+        },
+        {
+          "info": {
+            "name": "Delete a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hyperping.io/v1/monitors/:monitor_uuid",
+            "params": [
+              {
+                "name": "monitor_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the monitor."
+              }
+            ]
+          },
+          "docs": "Delete a monitor"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

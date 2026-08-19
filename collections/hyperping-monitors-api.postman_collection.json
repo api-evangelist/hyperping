@@ -1,0 +1,502 @@
+{
+  "item": [
+    {
+      "id": "c5cb45b0-b1ec-4ef0-8436-6810e7c10938",
+      "name": "Monitors",
+      "description": {
+        "content": "Create, retrieve, update, and delete uptime monitors.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "80909ae2-5851-4b7e-9f91-fe185f9ee0cf",
+          "name": "List all monitors",
+          "request": {
+            "name": "List all monitors",
+            "description": {},
+            "url": {
+              "path": [
+                "monitors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4583ca63-77e2-427d-818f-30da148c04e3",
+              "name": "A list of monitors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"uuid\": \"string\",\n    \"name\": \"string\",\n    \"url\": \"string\",\n    \"type\": \"ping\",\n    \"protocol\": \"string\",\n    \"port\": 7986,\n    \"interval\": 3355,\n    \"regions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"paused\": true,\n    \"status\": \"paused\",\n    \"created_at\": \"1955-05-08T23:22:30.578Z\"\n  },\n  {\n    \"uuid\": \"string\",\n    \"name\": \"string\",\n    \"url\": \"string\",\n    \"type\": \"keyword\",\n    \"protocol\": \"string\",\n    \"port\": 5976,\n    \"interval\": 7249,\n    \"regions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"paused\": false,\n    \"status\": \"down\",\n    \"created_at\": \"2019-08-05T11:33:41.058Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1cb377d2-a69e-43bd-8263-f63874e39bff",
+          "name": "Create a new monitor",
+          "request": {
+            "name": "Create a new monitor",
+            "description": {},
+            "url": {
+              "path": [
+                "monitors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"protocol\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"interval\": \"<integer>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"keyword\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "51b2c469-60ca-4943-977f-3eb9e3c50e39",
+              "name": "The created monitor.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\",\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"protocol\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"interval\": \"<integer>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"keyword\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"name\": \"string\",\n  \"url\": \"string\",\n  \"type\": \"port\",\n  \"protocol\": \"string\",\n  \"port\": 5079,\n  \"interval\": 9558,\n  \"regions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"paused\": true,\n  \"status\": \"up\",\n  \"created_at\": \"1973-10-05T12:21:20.715Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "147bc242-6f72-4ded-a3ac-3f394c2359bf",
+          "name": "Retrieve a monitor",
+          "request": {
+            "name": "Retrieve a monitor",
+            "description": {},
+            "url": {
+              "path": [
+                "monitors",
+                ":monitor_uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "monitor_uuid",
+                  "description": "(Required) The unique identifier of the monitor."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4af5c29b-753a-4c6e-a6ee-a4483cdae9b9",
+              "name": "The requested monitor.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_uuid",
+                      "description": "(Required) The unique identifier of the monitor."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"name\": \"string\",\n  \"url\": \"string\",\n  \"type\": \"port\",\n  \"protocol\": \"string\",\n  \"port\": 5079,\n  \"interval\": 9558,\n  \"regions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"paused\": true,\n  \"status\": \"up\",\n  \"created_at\": \"1973-10-05T12:21:20.715Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53ad4a47-9c62-4e8a-aca1-d6bdb567de5d",
+          "name": "Update a monitor",
+          "request": {
+            "name": "Update a monitor",
+            "description": {},
+            "url": {
+              "path": [
+                "monitors",
+                ":monitor_uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "monitor_uuid",
+                  "description": "(Required) The unique identifier of the monitor."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"protocol\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"interval\": \"<integer>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"keyword\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b0757bdc-5472-42ed-916a-a0294df55f8e",
+              "name": "The updated monitor.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_uuid",
+                      "description": "(Required) The unique identifier of the monitor."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\",\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"protocol\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"interval\": \"<integer>\",\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"keyword\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"name\": \"string\",\n  \"url\": \"string\",\n  \"type\": \"port\",\n  \"protocol\": \"string\",\n  \"port\": 5079,\n  \"interval\": 9558,\n  \"regions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"paused\": true,\n  \"status\": \"up\",\n  \"created_at\": \"1973-10-05T12:21:20.715Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47ac81af-531e-475c-b858-1406add388f7",
+          "name": "Delete a monitor",
+          "request": {
+            "name": "Delete a monitor",
+            "description": {},
+            "url": {
+              "path": [
+                "monitors",
+                ":monitor_uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "monitor_uuid",
+                  "description": "(Required) The unique identifier of the monitor."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "395888ba-9b36-4646-87f7-4f2fe2866cb3",
+              "name": "The monitor was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_uuid",
+                      "description": "(Required) The unique identifier of the monitor."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "89ac537e-6258-4e21-ba32-883add2a8d8a",
+    "name": "Hyperping Healthchecks Monitors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.\n\nContact Support:\n Name: Hyperping Support\n Email: hello@hyperping.io",
+      "type": "text/plain"
+    }
+  }
+}

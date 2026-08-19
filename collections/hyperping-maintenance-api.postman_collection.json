@@ -1,0 +1,597 @@
+{
+  "item": [
+    {
+      "id": "582aed73-993e-4eb1-b2ee-1759d631e8fb",
+      "name": "Maintenance",
+      "description": {
+        "content": "Scheduled maintenance windows.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "faf16425-cc9e-4410-9c06-91c848040768",
+          "name": "List all maintenance windows",
+          "request": {
+            "name": "List all maintenance windows",
+            "description": {},
+            "url": {
+              "path": [
+                "maintenance-windows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6f5ea911-c1d6-48b9-8c9c-69c652cccd99",
+              "name": "A list of maintenance windows.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenance-windows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"uuid\": \"string\",\n    \"title\": \"string\",\n    \"status\": \"in_progress\",\n    \"starts_at\": \"2002-08-28T15:36:14.720Z\",\n    \"ends_at\": \"1970-06-18T17:09:02.301Z\",\n    \"monitors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"notify_subscribers\": false\n  },\n  {\n    \"uuid\": \"string\",\n    \"title\": \"string\",\n    \"status\": \"in_progress\",\n    \"starts_at\": \"2002-01-05T13:38:35.674Z\",\n    \"ends_at\": \"1975-02-03T01:00:58.715Z\",\n    \"monitors\": [\n      \"string\",\n      \"string\"\n    ],\n    \"notify_subscribers\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c0e42da-eff8-4fca-8546-b35e414c7740",
+          "name": "Create a maintenance window",
+          "request": {
+            "name": "Create a maintenance window",
+            "description": {},
+            "url": {
+              "path": [
+                "maintenance-windows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"monitors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notify_subscribers\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2ad94464-bc35-4756-bd95-2f9f7828c70e",
+              "name": "The created maintenance window.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenance-windows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"monitors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notify_subscribers\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"title\": \"string\",\n  \"status\": \"completed\",\n  \"starts_at\": \"1999-01-15T14:49:53.042Z\",\n  \"ends_at\": \"1976-02-24T15:25:00.071Z\",\n  \"monitors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"notify_subscribers\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af071456-8d9c-41fa-8986-c820d28fb921",
+          "name": "Retrieve a maintenance window",
+          "request": {
+            "name": "Retrieve a maintenance window",
+            "description": {},
+            "url": {
+              "path": [
+                "maintenance-windows",
+                ":maintenance_uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maintenance_uuid",
+                  "description": "(Required) The unique identifier of the maintenance window."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "55edbed0-8601-4ccc-9858-256e525eaba7",
+              "name": "The requested maintenance window.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenance-windows",
+                    ":maintenance_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenance_uuid",
+                      "description": "(Required) The unique identifier of the maintenance window."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"title\": \"string\",\n  \"status\": \"completed\",\n  \"starts_at\": \"1999-01-15T14:49:53.042Z\",\n  \"ends_at\": \"1976-02-24T15:25:00.071Z\",\n  \"monitors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"notify_subscribers\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0c0cd05-c9e5-4cdd-84ac-f152960d0d43",
+          "name": "Update a maintenance window",
+          "request": {
+            "name": "Update a maintenance window",
+            "description": {},
+            "url": {
+              "path": [
+                "maintenance-windows",
+                ":maintenance_uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maintenance_uuid",
+                  "description": "(Required) The unique identifier of the maintenance window."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"monitors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notify_subscribers\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6f50b2c4-9658-4d03-bf58-338ba8faf973",
+              "name": "The updated maintenance window.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenance-windows",
+                    ":maintenance_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenance_uuid",
+                      "description": "(Required) The unique identifier of the maintenance window."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"monitors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"notify_subscribers\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"title\": \"string\",\n  \"status\": \"completed\",\n  \"starts_at\": \"1999-01-15T14:49:53.042Z\",\n  \"ends_at\": \"1976-02-24T15:25:00.071Z\",\n  \"monitors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"notify_subscribers\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23b0a60d-0ac5-448e-98ec-bef4a4f6da71",
+          "name": "Delete a maintenance window",
+          "request": {
+            "name": "Delete a maintenance window",
+            "description": {},
+            "url": {
+              "path": [
+                "maintenance-windows",
+                ":maintenance_uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maintenance_uuid",
+                  "description": "(Required) The unique identifier of the maintenance window."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "43b4a0b9-407a-45f3-8f7e-7e967b1c5e23",
+              "name": "The maintenance window was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenance-windows",
+                    ":maintenance_uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenance_uuid",
+                      "description": "(Required) The unique identifier of the maintenance window."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9106d550-355e-4a3c-bc2b-6c5911c63b96",
+          "name": "Mark a maintenance window as completed",
+          "request": {
+            "name": "Mark a maintenance window as completed",
+            "description": {},
+            "url": {
+              "path": [
+                "maintenance-windows",
+                ":maintenance_uuid",
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maintenance_uuid",
+                  "description": "(Required) The unique identifier of the maintenance window."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd4a7a5f-3631-44e8-82f6-3428a2ae2aba",
+              "name": "The completed maintenance window.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maintenance-windows",
+                    ":maintenance_uuid",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenance_uuid",
+                      "description": "(Required) The unique identifier of the maintenance window."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"title\": \"string\",\n  \"status\": \"completed\",\n  \"starts_at\": \"1999-01-15T14:49:53.042Z\",\n  \"ends_at\": \"1976-02-24T15:25:00.071Z\",\n  \"monitors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"notify_subscribers\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hyperping.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6992de90-2a9d-4e8f-8264-7ebd35ee2cb9",
+    "name": "Hyperping Healthchecks Maintenance API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.\n\nContact Support:\n Name: Hyperping Support\n Email: hello@hyperping.io",
+      "type": "text/plain"
+    }
+  }
+}

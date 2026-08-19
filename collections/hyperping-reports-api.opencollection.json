@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hyperping Healthchecks Reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get reports for all monitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/reporting/monitor-reports"
+          },
+          "docs": "Get reports for all monitors"
+        },
+        {
+          "info": {
+            "name": "Get a report for a specific monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hyperping.io/v1/reporting/monitor-reports/:monitor_uuid",
+            "params": [
+              {
+                "name": "monitor_uuid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the monitor."
+              }
+            ]
+          },
+          "docs": "Get a report for a specific monitor"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
