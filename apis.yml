@@ -7,6 +7,18 @@ description: Hyperping is an uptime monitoring and status page platform. Its RES
   monitors, run scheduled-task healthchecks, operate public status pages through
   incidents and maintenance windows, manage on-call outages, and pull uptime and
   SLA reporting.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
