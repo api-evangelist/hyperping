@@ -49,7 +49,7 @@ apis:
   humanURL: https://hyperping.com/docs/api/monitors
   baseURL: https://api.hyperping.io/v1
   tags:
-  - Healthchecks
+  - Health Checks
   tags_raw:
   - Healthchecks
   properties:
