@@ -44,34 +44,6 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.23'
 apis:
-- aid: hyperping:hyperping-healthchecks-api
-  name: Hyperping Healthchecks API
-  description: Cron-style monitors that expect periodic pings from scheduled tasks.
-  humanURL: https://hyperping.com/docs/api/monitors
-  baseURL: https://api.hyperping.io/v1
-  tags:
-  - Health Checks
-  tags_raw:
-  - Healthchecks
-  properties:
-  - type: OpenAPI
-    url: openapi/hyperping-healthchecks-api-openapi.yml
-  - type: Documentation
-    url: https://hyperping.com/docs/api/monitors
-  - type: APIReference
-    url: https://hyperping.com/docs/api/monitors
-  - type: PostmanCollection
-    url: collections/hyperping.postman_collection.json
-  - type: OpenCollection
-    url: collections/hyperping.opencollection.json
-  - type: Documentation
-    url: https://hyperping.com/docs/status-page/status-page-json
-  - type: Documentation
-    url: https://hyperping.com/docs/api/incidents
-  - type: APIReference
-    url: https://hyperping.com/docs/api/incidents
-  - type: Documentation
-    url: https://hyperping.com/docs/integrations/webhooks
 - aid: hyperping:hyperping-incidents-api
   name: Hyperping Incidents API
   description: Status page incident lifecycle and updates.
@@ -212,6 +184,32 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/hyperping-status-pages-api-openapi.yml
+  - type: Documentation
+    url: https://hyperping.com/docs/api/monitors
+  - type: APIReference
+    url: https://hyperping.com/docs/api/monitors
+  - type: PostmanCollection
+    url: collections/hyperping.postman_collection.json
+  - type: OpenCollection
+    url: collections/hyperping.opencollection.json
+  - type: Documentation
+    url: https://hyperping.com/docs/status-page/status-page-json
+  - type: Documentation
+    url: https://hyperping.com/docs/api/incidents
+  - type: APIReference
+    url: https://hyperping.com/docs/api/incidents
+  - type: Documentation
+    url: https://hyperping.com/docs/integrations/webhooks
+- aid: hyperping:hyperping-health-checks-api
+  name: Hyperping Health Checks API
+  description: Cron-style monitors that expect periodic pings from scheduled tasks.
+  humanURL: https://hyperping.com/docs/api/monitors
+  baseURL: https://api.hyperping.io/v1
+  tags:
+  - Health Checks
+  properties:
+  - type: OpenAPI
+    url: openapi/hyperping-health-checks-api-openapi.yml
   - type: Documentation
     url: https://hyperping.com/docs/api/monitors
   - type: APIReference
