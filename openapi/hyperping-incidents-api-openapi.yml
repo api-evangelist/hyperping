@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Hyperping Healthchecks Incidents API
-  description: REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.
+  title: Hyperping Incidents API
+  description: REST API for the Hyperping uptime monitoring and status page platform.
   termsOfService: https://hyperping.com/terms
   contact:
     name: Hyperping Support
@@ -118,26 +118,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/IncidentUpdate'
 components:
+  parameters:
+    IncidentUuid:
+      name: incident_uuid
+      in: path
+      required: true
+      description: The unique identifier of the incident.
+      schema:
+        type: string
   schemas:
-    IncidentUpdate:
-      type: object
-      required:
-      - status
-      - message
-      properties:
-        status:
-          type: string
-          enum:
-          - investigating
-          - identified
-          - update
-          - monitoring
-          - resolved
-        message:
-          type: string
-        created_at:
-          type: string
-          format: date-time
     Incident:
       type: object
       properties:
@@ -169,6 +158,25 @@ components:
         resolved_at:
           type: string
           format: date-time
+    IncidentUpdate:
+      type: object
+      required:
+      - status
+      - message
+      properties:
+        status:
+          type: string
+          enum:
+          - investigating
+          - identified
+          - update
+          - monitoring
+          - resolved
+        message:
+          type: string
+        created_at:
+          type: string
+          format: date-time
     IncidentInput:
       type: object
       required:
@@ -193,14 +201,6 @@ components:
           type: array
           items:
             type: string
-  parameters:
-    IncidentUuid:
-      name: incident_uuid
-      in: path
-      required: true
-      description: The unique identifier of the incident.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

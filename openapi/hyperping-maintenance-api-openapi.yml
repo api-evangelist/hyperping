@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Hyperping Healthchecks Maintenance API
-  description: REST API for the Hyperping uptime monitoring and status page platform. Programmatically manage monitors, cron-style healthchecks, status page incidents and maintenance windows, on-call outages, and uptime / SLA reporting. All requests are authenticated with a project API key passed as a Bearer token in the Authorization header. Note that Hyperping versions resources independently in the request path (monitors and maintenance use v1, healthchecks / outages / reporting use v2, incidents use v3); the base server is https://api.hyperping.io and the version segment is included in each path below.
+  title: Hyperping Maintenance API
+  description: REST API for the Hyperping uptime monitoring and status page platform.
   termsOfService: https://hyperping.com/terms
   contact:
     name: Hyperping Support
@@ -106,14 +106,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/MaintenanceWindow'
 components:
-  parameters:
-    MaintenanceUuid:
-      name: maintenance_uuid
-      in: path
-      required: true
-      description: The unique identifier of the maintenance window.
-      schema:
-        type: string
   schemas:
     MaintenanceWindow:
       type: object
@@ -161,6 +153,14 @@ components:
             type: string
         notify_subscribers:
           type: boolean
+  parameters:
+    MaintenanceUuid:
+      name: maintenance_uuid
+      in: path
+      required: true
+      description: The unique identifier of the maintenance window.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
