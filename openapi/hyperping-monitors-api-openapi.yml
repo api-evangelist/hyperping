@@ -91,14 +91,6 @@ paths:
         '204':
           description: The monitor was deleted.
 components:
-  parameters:
-    MonitorUuid:
-      name: monitor_uuid
-      in: path
-      required: true
-      description: The unique identifier of the monitor.
-      schema:
-        type: string
   schemas:
     MonitorInput:
       type: object
@@ -178,6 +170,14 @@ components:
         created_at:
           type: string
           format: date-time
+  parameters:
+    MonitorUuid:
+      name: monitor_uuid
+      in: path
+      required: true
+      description: The unique identifier of the monitor.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

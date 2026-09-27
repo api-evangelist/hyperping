@@ -145,14 +145,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Outage'
 components:
-  parameters:
-    OutageUuid:
-      name: outage_uuid
-      in: path
-      required: true
-      description: The unique identifier of the outage.
-      schema:
-        type: string
   schemas:
     OutageInput:
       type: object
@@ -186,6 +178,14 @@ components:
         resolved_at:
           type: string
           format: date-time
+  parameters:
+    OutageUuid:
+      name: outage_uuid
+      in: path
+      required: true
+      description: The unique identifier of the outage.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

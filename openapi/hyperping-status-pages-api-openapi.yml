@@ -40,6 +40,19 @@ paths:
                 $ref: '#/components/schemas/StatusPage'
 components:
   schemas:
+    StatusPageService:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        operational:
+          type: boolean
+        uptime:
+          type: number
+          format: float
+          description: Uptime percentage.
     StatusPage:
       type: object
       properties:
@@ -54,19 +67,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StatusPageService'
-    StatusPageService:
-      type: object
-      properties:
-        name:
-          type: string
-        status:
-          type: string
-        operational:
-          type: boolean
-        uptime:
-          type: number
-          format: float
-          description: Uptime percentage.
   securitySchemes:
     bearerAuth:
       type: http
