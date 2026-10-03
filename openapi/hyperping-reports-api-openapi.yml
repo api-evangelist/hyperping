@@ -51,6 +51,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/MonitorReport'
 components:
+  parameters:
+    MonitorUuid:
+      name: monitor_uuid
+      in: path
+      required: true
+      description: The unique identifier of the monitor.
+      schema:
+        type: string
   schemas:
     MonitorReport:
       type: object
@@ -71,14 +79,6 @@ components:
           type: number
           format: float
           description: Average response time in milliseconds.
-  parameters:
-    MonitorUuid:
-      name: monitor_uuid
-      in: path
-      required: true
-      description: The unique identifier of the monitor.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
