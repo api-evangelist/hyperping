@@ -138,6 +138,20 @@ components:
       schema:
         type: string
   schemas:
+    HealthcheckInput:
+      type: object
+      required:
+      - name
+      - period
+      properties:
+        name:
+          type: string
+        period:
+          type: integer
+          description: Expected ping period in seconds.
+        grace:
+          type: integer
+          description: Grace period in seconds before alerting.
     Healthcheck:
       type: object
       properties:
@@ -163,20 +177,6 @@ components:
         created_at:
           type: string
           format: date-time
-    HealthcheckInput:
-      type: object
-      required:
-      - name
-      - period
-      properties:
-        name:
-          type: string
-        period:
-          type: integer
-          description: Expected ping period in seconds.
-        grace:
-          type: integer
-          description: Grace period in seconds before alerting.
   securitySchemes:
     bearerAuth:
       type: http

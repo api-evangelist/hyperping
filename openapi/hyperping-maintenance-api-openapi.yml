@@ -107,6 +107,27 @@ paths:
                 $ref: '#/components/schemas/MaintenanceWindow'
 components:
   schemas:
+    MaintenanceWindowInput:
+      type: object
+      required:
+      - title
+      - starts_at
+      - ends_at
+      properties:
+        title:
+          type: string
+        starts_at:
+          type: string
+          format: date-time
+        ends_at:
+          type: string
+          format: date-time
+        monitors:
+          type: array
+          items:
+            type: string
+        notify_subscribers:
+          type: boolean
     MaintenanceWindow:
       type: object
       properties:
@@ -120,27 +141,6 @@ components:
           - scheduled
           - in_progress
           - completed
-        starts_at:
-          type: string
-          format: date-time
-        ends_at:
-          type: string
-          format: date-time
-        monitors:
-          type: array
-          items:
-            type: string
-        notify_subscribers:
-          type: boolean
-    MaintenanceWindowInput:
-      type: object
-      required:
-      - title
-      - starts_at
-      - ends_at
-      properties:
-        title:
-          type: string
         starts_at:
           type: string
           format: date-time

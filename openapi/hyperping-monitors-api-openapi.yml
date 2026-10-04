@@ -92,39 +92,6 @@ paths:
           description: The monitor was deleted.
 components:
   schemas:
-    MonitorInput:
-      type: object
-      required:
-      - url
-      - type
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-        type:
-          type: string
-          enum:
-          - http
-          - ping
-          - port
-          - keyword
-          - dns
-          - browser
-        protocol:
-          type: string
-        port:
-          type: integer
-        interval:
-          type: integer
-          description: Check interval in seconds.
-        regions:
-          type: array
-          items:
-            type: string
-        keyword:
-          type: string
-          description: Keyword to match in the response body (keyword monitors).
     Monitor:
       type: object
       properties:
@@ -170,6 +137,39 @@ components:
         created_at:
           type: string
           format: date-time
+    MonitorInput:
+      type: object
+      required:
+      - url
+      - type
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        type:
+          type: string
+          enum:
+          - http
+          - ping
+          - port
+          - keyword
+          - dns
+          - browser
+        protocol:
+          type: string
+        port:
+          type: integer
+        interval:
+          type: integer
+          description: Check interval in seconds.
+        regions:
+          type: array
+          items:
+            type: string
+        keyword:
+          type: string
+          description: Keyword to match in the response body (keyword monitors).
   parameters:
     MonitorUuid:
       name: monitor_uuid
