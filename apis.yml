@@ -227,6 +227,9 @@ apis:
   - type: Documentation
     url: https://hyperping.com/docs/integrations/webhooks
 common:
+- type: CapabilityMap
+  url: capabilities/hyperping-capability-edges.yml
+  name: Hyperping Business Capability Map
 - type: VendorFacets
   url: vendor-facets/hyperping-vendor-facets.yml
 - type: AgenticAccess
