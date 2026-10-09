@@ -254,6 +254,8 @@ common:
   url: finops/hyperping-finops.yml
 - url: https://hyperping.com/blog
   type: Blog
+- type: SpectralRules
+  url: https://github.com/hyperping/hyperping-go/blob/7be4590be32b4c81669d41d45bfd335f5ab828b0/.spectral.yaml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

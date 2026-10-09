@@ -1,0 +1,10 @@
+# harvested from https://github.com/hyperping/hyperping-go/blob/7be4590be32b4c81669d41d45bfd335f5ab828b0/.spectral.yaml on 2026-10-09 — a Spectral ruleset published in the provider's own GitHub repository (hyperping/hyperping-go); found by GitHub code search, fetched verbatim
+x-method: harvested
+x-stamped: 2026-10-09
+x-source-url: https://github.com/hyperping/hyperping-go/blob/7be4590be32b4c81669d41d45bfd335f5ab828b0/.spectral.yaml
+extends:
+  - "spectral:oas"
+rules:
+  info-contact: warn
+  operation-tag-defined: warn
+  operation-description: off
