@@ -118,7 +118,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/IncidentUpdate'
 components:
+  parameters:
+    IncidentUuid:
+      name: incident_uuid
+      in: path
+      required: true
+      description: The unique identifier of the incident.
+      schema:
+        type: string
   schemas:
+    Incident:
+      type: object
+      properties:
+        uuid:
+          type: string
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+          - investigating
+          - identified
+          - update
+          - monitoring
+          - resolved
+        impact:
+          type: string
+        monitors:
+          type: array
+          items:
+            type: string
+        updates:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncidentUpdate'
+        created_at:
+          type: string
+          format: date-time
+        resolved_at:
+          type: string
+          format: date-time
     IncidentInput:
       type: object
       required:
@@ -162,45 +201,6 @@ components:
         created_at:
           type: string
           format: date-time
-    Incident:
-      type: object
-      properties:
-        uuid:
-          type: string
-        title:
-          type: string
-        status:
-          type: string
-          enum:
-          - investigating
-          - identified
-          - update
-          - monitoring
-          - resolved
-        impact:
-          type: string
-        monitors:
-          type: array
-          items:
-            type: string
-        updates:
-          type: array
-          items:
-            $ref: '#/components/schemas/IncidentUpdate'
-        created_at:
-          type: string
-          format: date-time
-        resolved_at:
-          type: string
-          format: date-time
-  parameters:
-    IncidentUuid:
-      name: incident_uuid
-      in: path
-      required: true
-      description: The unique identifier of the incident.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
