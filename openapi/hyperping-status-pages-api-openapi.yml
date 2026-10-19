@@ -1,74 +1,671 @@
 openapi: 3.2.0
 info:
-  title: Hyperping Status Pages API
-  description: REST API for the Hyperping uptime monitoring and status page platform.
-  termsOfService: https://hyperping.com/terms
+  title: Hyperping Status pages API
+  description: Hyperping is an uptime monitoring platform and status page service. This API allows you to programmatically manage monitors, healthchecks, status pages, incidents, outages, maintenance windows, and access uptime reports.
+  version: 1.0.0
   contact:
     name: Hyperping Support
     email: hello@hyperping.io
-  version: '1.0'
+    url: https://hyperping.com
+  x-logo:
+    url: https://hyperping.com/icons/icon-512x512.png
 servers:
-- url: https://api.hyperping.io/v1
-  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+- url: https://api.hyperping.io
+  description: Production API server
 security:
 - bearerAuth: []
 tags:
-- name: Status Pages
-  description: Public machine-readable status feed for a status page.
+- name: Status pages
+  description: Public status pages and the services they show
 paths:
-  /{subdomain}/status.json:
-    parameters:
-    - name: subdomain
-      in: path
-      required: true
-      description: The status page host (e.g. yourdomain.hyperping.io).
-      schema:
-        type: string
+  /v2/statuspages:
     get:
-      operationId: getStatusPageJson
       tags:
-      - Status Pages
-      summary: Get the public status feed for a status page
-      description: Returns the current overall status and per-service uptime for an active status page in a machine-readable form. Available only on active status pages.
-      security: []
+      - Status pages
+      summary: List status pages
+      description: 'Returns the status pages of the project, 20 per page, newest first. The list does not include settings or sections: get a status page for those.'
+      operationId: listStatusPages
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+        description: Page number, starting at 0
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Matches the name, the custom domain and the hyperping.app subdomain
       responses:
         '200':
-          description: The status page status feed.
+          description: A page of status pages
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StatusPage'
+                type: object
+                properties:
+                  statuspages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StatusPageSummary'
+                  hasNextPage:
+                    type: boolean
+                  total:
+                    type: integer
+                  page:
+                    type: integer
+                  resultsPerPage:
+                    type: integer
+                    example: 20
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags:
+      - Status pages
+      summary: Create a status page
+      description: Creates a status page. It is public as soon as it exists, unless authentication is set.
+      operationId: createStatusPage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStatusPageRequest'
+      responses:
+        '201':
+          description: Status page created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusPageEnvelope'
+        '400':
+          description: Missing name, invalid or taken subdomain or hostname, or a service identifier that is not a monitor, healthcheck, server or component of the project
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Custom domains need the Essentials plan or above
+  /v2/statuspages/{uuid}:
+    get:
+      tags:
+      - Status pages
+      summary: Get a status page
+      description: Returns the status page with its settings and its sections. Start from this response to build a PUT that changes sections.
+      operationId: getStatusPage
+      parameters:
+      - $ref: '#/components/parameters/StatusPageUuid'
+      responses:
+        '200':
+          description: Status page details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statuspage:
+                    $ref: '#/components/schemas/StatusPage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+      - Status pages
+      summary: Update a status page
+      description: 'Changes only the fields sent. `sections` is the exception: when present, it replaces every section of the page. Start from the GET, change what you need and send all the sections back. Omit `sections` to keep them; an empty array removes them all.'
+      operationId: updateStatusPage
+      parameters:
+      - $ref: '#/components/parameters/StatusPageUuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStatusPageRequest'
+      responses:
+        '200':
+          description: Status page updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusPageEnvelope'
+        '400':
+          description: Invalid subdomain or hostname, or a service identifier that is not a monitor, healthcheck, server or component of the project
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags:
+      - Status pages
+      summary: Delete a status page
+      operationId: deleteStatusPage
+      parameters:
+      - $ref: '#/components/parameters/StatusPageUuid'
+      responses:
+        '200':
+          description: Status page deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    StatusPageUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Status page UUID
+      example: sp_xyz789abc
   schemas:
-    StatusPage:
+    NestedService:
       type: object
+      description: A service inside a group. Same identifiers and rules as Service, without description or nested groups.
+      properties:
+        monitor_uuid:
+          type: string
+          writeOnly: true
+          description: mon_, hc_, agt_ or comp_. A healthcheck's tok_ is converted to its hc_.
+          example: mon_OYKr5fpSDHqbP2
+        uuid:
+          type: string
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - monitor
+          - healthcheck
+          - server
+          - component
+          readOnly: true
+        name_shown:
+          type: string
+          writeOnly: true
+        name:
+          $ref: '#/components/schemas/LocalizedText'
+        show_uptime:
+          type: boolean
+          default: true
+        show_response_times:
+          type: boolean
+          default: true
+          description: Always false for a healthcheck.
+        hide_when_up:
+          type: boolean
+          default: false
+    LocalizedText:
+      type: object
+      description: Localized text object with language keys
+      properties:
+        en:
+          type: string
+        fr:
+          type: string
+        de:
+          type: string
+        ru:
+          type: string
+        nl:
+          type: string
+        pl:
+          type: string
+        se:
+          type: string
+      example:
+        en: We are investigating the issue
+        fr: Nous enquêtons sur le problème
+    CreateStatusPageRequest:
+      type: object
+      required:
+      - name
       properties:
         name:
           type: string
-        url:
+          description: 'Name of the page: browser tab title, and page title when there is no logo'
+        subdomain:
           type: string
-        status:
+          description: Hosts the page at <subdomain>.hyperping.app. Unique across Hyperping
+          example: acme
+        hostname:
           type: string
-          description: Overall status indicator for the page.
+          description: Custom domain, with a CNAME to cname.hyperping.io. Essentials plan or above
+          example: status.acme.com
+        website:
+          type: string
+          description: Link back to your site, in the page header
+        description:
+          type: string
+          description: Text under the page title, stored under the default language
+        languages:
+          type: array
+          items:
+            type: string
+            enum:
+            - en
+            - fr
+            - de
+            - ru
+            - nl
+            - pl
+            - sv
+          default:
+          - en
+          description: The first one is the default language
+        theme:
+          type: string
+          enum:
+          - light
+          - dark
+          - system
+          default: system
+        font:
+          type: string
+          default: Inter
+        accent_color:
+          type: string
+          default: '#36b27e'
+        auto_refresh:
+          type: boolean
+          default: false
+        calendar:
+          type: boolean
+          default: true
+          description: Show the incident calendar
+        banner_header:
+          type: boolean
+          default: true
+        logo:
+          type: string
+        logo_height:
+          type: string
+          example: 32px
+        favicon:
+          type: string
+        hide_powered_by:
+          type: boolean
+          default: false
+        hide_from_search_engines:
+          type: boolean
+          default: false
+        google_analytics:
+          type: string
+          example: G-XXXXXXXXXX
+        password:
+          type: string
+          description: Password asked when authentication.password_protection is true
+        subscribe:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            email:
+              type: boolean
+            slack:
+              type: boolean
+            teams:
+              type: boolean
+            sms:
+              type: boolean
+            rss:
+              type: boolean
+        authentication:
+          type: object
+          properties:
+            password_protection:
+              type: boolean
+            google_sso:
+              type: boolean
+            google_allowed_domains:
+              type: array
+              items:
+                type: string
+            saml_sso:
+              type: boolean
+            sso_connection_uuid:
+              type:
+              - string
+              - 'null'
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Section'
+          description: Sections of the page, in display order
+    StatusPage:
+      allOf:
+      - $ref: '#/components/schemas/StatusPageSummary'
+      - type: object
+        properties:
+          settings:
+            type: object
+            properties:
+              name:
+                type: string
+              website:
+                type:
+                - string
+                - 'null'
+              description:
+                $ref: '#/components/schemas/LocalizedText'
+              languages:
+                type: array
+                items:
+                  type: string
+                example:
+                - en
+              default_language:
+                type: string
+                example: en
+              theme:
+                type:
+                - string
+                - 'null'
+                enum:
+                - light
+                - dark
+                - system
+              font:
+                type: string
+                example: Inter
+              accent_color:
+                type: string
+                example: '#36b27e'
+              auto_refresh:
+                type: boolean
+              calendar:
+                type: boolean
+              banner_header:
+                type: boolean
+              logo:
+                type:
+                - string
+                - 'null'
+              logo_height:
+                type:
+                - string
+                - 'null'
+              favicon:
+                type:
+                - string
+                - 'null'
+              hide_powered_by:
+                type: boolean
+              hide_from_search_engines:
+                type: boolean
+              google_analytics:
+                type:
+                - string
+                - 'null'
+              subscribe:
+                type: object
+                properties:
+                  enabled:
+                    type: boolean
+                  email:
+                    type: boolean
+                  slack:
+                    type: boolean
+                  teams:
+                    type: boolean
+                  sms:
+                    type: boolean
+                  rss:
+                    type: boolean
+              authentication:
+                type: object
+                properties:
+                  password_protection:
+                    type: boolean
+                  google_sso:
+                    type: boolean
+                  google_allowed_domains:
+                    type: array
+                    items:
+                      type: string
+                  saml_sso:
+                    type: boolean
+                  sso_connection_uuid:
+                    type:
+                    - string
+                    - 'null'
+                  sso_connection:
+                    type:
+                    - object
+                    - 'null'
+                    properties:
+                      uuid:
+                        type: string
+                      name:
+                        type: string
+                      provider:
+                        type: string
+          sections:
+            type: array
+            items:
+              $ref: '#/components/schemas/Section'
+    Section:
+      type: object
+      description: A titled block of services on the page.
+      properties:
+        name:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/LocalizedText'
+          description: Heading of the section. A string is stored under the page's default language; the GET returns the localized object, which can be sent back as is.
+          example: Core services
+        is_split:
+          type: boolean
+          default: true
+          description: Kept for compatibility. It has no visible effect on the page.
         services:
           type: array
           items:
-            $ref: '#/components/schemas/StatusPageService'
-    StatusPageService:
+            $ref: '#/components/schemas/Service'
+          description: Services of the section, in display order
+    StatusPageEnvelope:
       type: object
+      properties:
+        message:
+          type: string
+          example: Status page updated
+        statuspage:
+          $ref: '#/components/schemas/StatusPage'
+    UpdateStatusPageRequest:
+      type: object
+      description: 'Every field is optional and only the fields sent change, except `sections`: when present, it replaces all the sections of the page. Build it from the GET.'
       properties:
         name:
           type: string
-        status:
+        subdomain:
           type: string
-        operational:
+        hostname:
+          type:
+          - string
+          - 'null'
+          description: null removes the custom domain
+        website:
+          type: string
+        description:
+          type: string
+        languages:
+          type: array
+          items:
+            type: string
+            enum:
+            - en
+            - fr
+            - de
+            - ru
+            - nl
+            - pl
+            - sv
+        theme:
+          type: string
+          enum:
+          - light
+          - dark
+          - system
+        font:
+          type: string
+        accent_color:
+          type: string
+        auto_refresh:
           type: boolean
-        uptime:
-          type: number
-          format: float
-          description: Uptime percentage.
+        calendar:
+          type: boolean
+        banner_header:
+          type: boolean
+        logo:
+          type:
+          - string
+          - 'null'
+        logo_height:
+          type: string
+        favicon:
+          type:
+          - string
+          - 'null'
+        hide_powered_by:
+          type: boolean
+        hide_from_search_engines:
+          type: boolean
+        google_analytics:
+          type:
+          - string
+          - 'null'
+        password:
+          type: string
+        subscribe:
+          $ref: '#/components/schemas/CreateStatusPageRequest/properties/subscribe'
+        authentication:
+          $ref: '#/components/schemas/CreateStatusPageRequest/properties/authentication'
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Section'
+          description: 'Replaces ALL the sections of the page. Omit it to keep them; [] removes them all. Start from the GET: a service left out is removed from the page.'
+    StatusPageSummary:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: sp_xyz789abc
+        name:
+          type:
+          - string
+          - 'null'
+          example: Acme Status
+        hostname:
+          type:
+          - string
+          - 'null'
+          description: Custom domain
+          example: status.acme.com
+        hostedsubdomain:
+          type:
+          - string
+          - 'null'
+          example: acme.hyperping.app
+        url:
+          type:
+          - string
+          - 'null'
+          description: The custom domain if set, otherwise the hyperping.app subdomain
+          example: status.acme.com
+        password_protected:
+          type: boolean
+    Service:
+      type: object
+      description: 'A monitor, healthcheck, server or component shown on the page, or a group of them (is_group). Identify it with monitor_uuid, uuid or id: they are interchangeable, and when several are set monitor_uuid wins, then uuid, then id. Every identifier must belong to the project, otherwise the request fails with 400 and nothing is saved.'
+      properties:
+        monitor_uuid:
+          type: string
+          writeOnly: true
+          description: 'What to show. Prefixes: mon_ (monitor), hc_ (healthcheck), agt_ (server), comp_ (component). For a healthcheck, use its hc_: the publicUuid of GET /v2/healthchecks (also returned by the status page GET and by the MCP list_healthchecks tool). Its tok_ (the uuid of the healthchecks API) is also accepted: it is converted to the hc_ and never stored.'
+          example: hc_kTnB3x9LqWm2Vd8RcY4sPa1Z
+        uuid:
+          type: string
+          description: Same as monitor_uuid. The GET returns it, equal to id.
+        id:
+          type: string
+          description: Same as monitor_uuid. The GET returns it, equal to uuid.
+        type:
+          type: string
+          enum:
+          - monitor
+          - healthcheck
+          - server
+          - component
+          readOnly: true
+          description: 'What the service is, derived by the server from its identifier. Ignored on input: sending a GET back unchanged keeps every service as it is.'
+        name_shown:
+          type: string
+          writeOnly: true
+          description: Display name, stored under the page's default language. Takes precedence over name.
+        name:
+          allOf:
+          - $ref: '#/components/schemas/LocalizedText'
+          description: 'Display name per language, as the GET returns it. Used on input when name_shown is absent. The page does not fall back to the monitor''s own name: set name_shown or name on every service.'
+        description:
+          oneOf:
+          - type: string
+          - $ref: '#/components/schemas/LocalizedText'
+          description: Shown in a tooltip next to the name. A string is stored under the page's default language.
+        is_group:
+          type: boolean
+          default: false
+          description: 'Makes this entry a collapsible group: give it a name and its services. Its status is the worst status of its services.'
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/NestedService'
+          description: Services of the group, when is_group is true. Groups do not nest.
+        show_uptime:
+          type: boolean
+          default: true
+          description: 90 days of daily uptime bars. Supported for every type, healthchecks included.
+        show_response_times:
+          type: boolean
+          default: true
+          description: 'Latency chart. A healthcheck has no response time: the value is stored and returned as false for it, whatever is sent.'
+        hide_when_up:
+          type: boolean
+          default: false
+          description: List the service only during an incident or a maintenance.
+        show_when_all_up:
+          type: boolean
+          readOnly: true
+          description: Summary row that disappears when a hidden service goes down. Set in the dashboard; the API does not write it, and a PUT with sections resets it to false.
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Resource not found
+    Unauthorized:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Invalid or missing API key
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'
+      description: API key from https://app.hyperping.io/project/developers
+externalDocs:
+  description: Hyperping API Documentation
+  url: https://hyperping.com/docs/api/overview

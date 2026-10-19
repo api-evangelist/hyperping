@@ -1,32 +1,33 @@
 openapi: 3.2.0
 info:
   title: Hyperping Incidents API
-  description: REST API for the Hyperping uptime monitoring and status page platform.
-  termsOfService: https://hyperping.com/terms
+  description: Hyperping is an uptime monitoring platform and status page service. This API allows you to programmatically manage monitors, healthchecks, status pages, incidents, outages, maintenance windows, and access uptime reports.
+  version: 1.0.0
   contact:
     name: Hyperping Support
     email: hello@hyperping.io
-  version: '1.0'
+    url: https://hyperping.com
+  x-logo:
+    url: https://hyperping.com/icons/icon-512x512.png
 servers:
-- url: https://api.hyperping.io/v1
-  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+- url: https://api.hyperping.io
+  description: Production API server
 security:
 - bearerAuth: []
 tags:
 - name: Incidents
-  description: Status page incident lifecycle and updates.
+  description: Status page incident management
 paths:
-  /incidents:
-    servers:
-    - url: https://api.hyperping.io/v3
+  /v3/incidents:
     get:
-      operationId: listIncidents
       tags:
       - Incidents
-      summary: Get all incidents
+      summary: List all incidents
+      description: Returns all status page incidents.
+      operationId: listIncidents
       responses:
         '200':
-          description: A list of incidents.
+          description: List of incidents
           content:
             application/json:
               schema:
@@ -34,76 +35,79 @@ paths:
                 items:
                   $ref: '#/components/schemas/Incident'
     post:
-      operationId: createIncident
       tags:
       - Incidents
       summary: Create an incident
+      description: Creates a new status page incident.
+      operationId: createIncident
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IncidentInput'
+              $ref: '#/components/schemas/IncidentCreate'
       responses:
         '201':
-          description: The created incident.
+          description: Incident created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Incident'
-  /incidents/{incident_uuid}:
-    servers:
-    - url: https://api.hyperping.io/v3
-    parameters:
-    - $ref: '#/components/parameters/IncidentUuid'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  uuid:
+                    type: string
+  /v3/incidents/{uuid}:
     get:
-      operationId: getIncident
       tags:
       - Incidents
       summary: Get an incident
+      operationId: getIncident
+      parameters:
+      - $ref: '#/components/parameters/IncidentUuid'
       responses:
         '200':
-          description: The requested incident.
+          description: Incident details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Incident'
     put:
-      operationId: updateIncident
       tags:
       - Incidents
       summary: Update an incident
+      operationId: updateIncident
+      parameters:
+      - $ref: '#/components/parameters/IncidentUuid'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IncidentInput'
+              $ref: '#/components/schemas/IncidentCreate'
       responses:
         '200':
-          description: The updated incident.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Incident'
+          description: Incident updated
     delete:
-      operationId: deleteIncident
       tags:
       - Incidents
       summary: Delete an incident
+      operationId: deleteIncident
+      parameters:
+      - $ref: '#/components/parameters/IncidentUuid'
       responses:
-        '204':
-          description: The incident was deleted.
-  /incidents/{incident_uuid}/updates:
-    servers:
-    - url: https://api.hyperping.io/v3
-    parameters:
-    - $ref: '#/components/parameters/IncidentUuid'
+        '200':
+          description: Incident deleted
+  /v3/incidents/{uuid}/updates:
     post:
-      operationId: addIncidentUpdate
       tags:
       - Incidents
-      summary: Add an update to an incident
+      summary: Add incident update
+      description: Post a timeline update to an incident.
+      operationId: addIncidentUpdate
+      parameters:
+      - $ref: '#/components/parameters/IncidentUuid'
       requestBody:
         required: true
         content:
@@ -111,30 +115,49 @@ paths:
             schema:
               $ref: '#/components/schemas/IncidentUpdate'
       responses:
-        '201':
-          description: The created incident update.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IncidentUpdate'
+        '200':
+          description: Update added
 components:
   parameters:
     IncidentUuid:
-      name: incident_uuid
+      name: uuid
       in: path
       required: true
-      description: The unique identifier of the incident.
       schema:
         type: string
+      description: Incident UUID
+      example: inci_cDAqydvnNnyc8D
   schemas:
-    Incident:
+    LocalizedText:
+      type: object
+      description: Localized text object with language keys
+      properties:
+        en:
+          type: string
+        fr:
+          type: string
+        de:
+          type: string
+        ru:
+          type: string
+        nl:
+          type: string
+        pl:
+          type: string
+        se:
+          type: string
+      example:
+        en: We are investigating the issue
+        fr: Nous enquêtons sur le problème
+    IncidentUpdate:
       type: object
       properties:
-        uuid:
+        date:
           type: string
-        title:
-          type: string
-        status:
+          format: date-time
+        text:
+          $ref: '#/components/schemas/LocalizedText'
+        type:
           type: string
           enum:
           - investigating
@@ -142,9 +165,24 @@ components:
           - update
           - monitoring
           - resolved
-        impact:
+    IncidentCreate:
+      type: object
+      required:
+      - title
+      - type
+      properties:
+        title:
+          $ref: '#/components/schemas/LocalizedText'
+        type:
           type: string
-        monitors:
+          enum:
+          - outage
+          - incident
+        affectedComponents:
+          type: array
+          items:
+            type: string
+        statuspages:
           type: array
           items:
             type: string
@@ -152,57 +190,35 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/IncidentUpdate'
-        created_at:
-          type: string
-          format: date-time
-        resolved_at:
-          type: string
-          format: date-time
-    IncidentInput:
+    Incident:
       type: object
-      required:
-      - title
-      - status
       properties:
-        title:
+        uuid:
           type: string
-        status:
+        title:
+          $ref: '#/components/schemas/LocalizedText'
+        type:
           type: string
           enum:
-          - investigating
-          - identified
-          - update
-          - monitoring
-          - resolved
-        impact:
-          type: string
-        message:
-          type: string
-        monitors:
+          - outage
+          - incident
+        affectedComponents:
           type: array
           items:
             type: string
-    IncidentUpdate:
-      type: object
-      required:
-      - status
-      - message
-      properties:
-        status:
-          type: string
-          enum:
-          - investigating
-          - identified
-          - update
-          - monitoring
-          - resolved
-        message:
-          type: string
-        created_at:
-          type: string
-          format: date-time
+        statuspages:
+          type: array
+          items:
+            type: string
+        updates:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncidentUpdate'
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'
+      description: API key from https://app.hyperping.io/project/developers
+externalDocs:
+  description: Hyperping API Documentation
+  url: https://hyperping.com/docs/api/overview

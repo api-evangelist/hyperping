@@ -1,185 +1,347 @@
 openapi: 3.2.0
 info:
   title: Hyperping Monitors API
-  description: REST API for the Hyperping uptime monitoring and status page platform.
-  termsOfService: https://hyperping.com/terms
+  description: Hyperping is an uptime monitoring platform and status page service. This API allows you to programmatically manage monitors, healthchecks, status pages, incidents, outages, maintenance windows, and access uptime reports.
+  version: 1.0.0
   contact:
     name: Hyperping Support
     email: hello@hyperping.io
-  version: '1.0'
+    url: https://hyperping.com
+  x-logo:
+    url: https://hyperping.com/icons/icon-512x512.png
 servers:
-- url: https://api.hyperping.io/v1
-  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+- url: https://api.hyperping.io
+  description: Production API server
 security:
 - bearerAuth: []
 tags:
 - name: Monitors
-  description: Create, retrieve, update, and delete uptime monitors.
+  description: Uptime monitors for websites and APIs
 paths:
-  /monitors:
+  /v1/monitors:
     get:
-      operationId: listMonitors
       tags:
       - Monitors
       summary: List all monitors
+      description: Returns a list of all monitors for a project.
+      operationId: listMonitors
       responses:
         '200':
-          description: A list of monitors.
+          description: List of monitors
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Monitor'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
-      operationId: createMonitor
       tags:
       - Monitors
-      summary: Create a new monitor
+      summary: Create a monitor
+      description: Creates a new uptime monitor.
+      operationId: createMonitor
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MonitorInput'
+              $ref: '#/components/schemas/MonitorCreate'
       responses:
         '201':
-          description: The created monitor.
+          description: Monitor created
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Monitor'
-  /monitors/{monitor_uuid}:
-    parameters:
-    - $ref: '#/components/parameters/MonitorUuid'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/monitors/{uuid}:
     get:
-      operationId: getMonitor
       tags:
       - Monitors
-      summary: Retrieve a monitor
+      summary: Get a monitor
+      description: Retrieve details of a specific monitor.
+      operationId: getMonitor
+      parameters:
+      - $ref: '#/components/parameters/MonitorUuid'
       responses:
         '200':
-          description: The requested monitor.
+          description: Monitor details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Monitor'
+        '404':
+          $ref: '#/components/responses/NotFound'
     put:
-      operationId: updateMonitor
       tags:
       - Monitors
       summary: Update a monitor
+      description: Update an existing monitor's configuration.
+      operationId: updateMonitor
+      parameters:
+      - $ref: '#/components/parameters/MonitorUuid'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MonitorInput'
+              $ref: '#/components/schemas/MonitorCreate'
       responses:
         '200':
-          description: The updated monitor.
+          description: Monitor updated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Monitor'
     delete:
-      operationId: deleteMonitor
       tags:
       - Monitors
       summary: Delete a monitor
+      description: Permanently delete a monitor.
+      operationId: deleteMonitor
+      parameters:
+      - $ref: '#/components/parameters/MonitorUuid'
       responses:
-        '204':
-          description: The monitor was deleted.
+        '200':
+          description: Monitor deleted
 components:
   schemas:
-    MonitorInput:
-      type: object
-      required:
-      - url
-      - type
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-        type:
-          type: string
-          enum:
-          - http
-          - ping
-          - port
-          - keyword
-          - dns
-          - browser
-        protocol:
-          type: string
-        port:
-          type: integer
-        interval:
-          type: integer
-          description: Check interval in seconds.
-        regions:
-          type: array
-          items:
-            type: string
-        keyword:
-          type: string
-          description: Keyword to match in the response body (keyword monitors).
     Monitor:
       type: object
       properties:
         uuid:
           type: string
-          description: Unique identifier of the monitor.
+          example: mon_OYKr5fpSDHqbP2
         name:
           type: string
+          example: API
         url:
           type: string
-          description: The target URL or host being monitored.
-        type:
-          type: string
-          description: Monitor type.
-          enum:
-          - http
-          - ping
-          - port
-          - keyword
-          - dns
-          - browser
+          example: https://api.acme.com
         protocol:
           type: string
-        port:
+          enum:
+          - http
+          - port
+          - icmp
+        http_method:
+          type: string
+          enum:
+          - GET
+          - POST
+          - PUT
+          - HEAD
+          - DELETE
+          - PATCH
+          - OPTIONS
+        check_frequency:
           type: integer
-        interval:
-          type: integer
-          description: Check interval in seconds.
+          description: Check interval in seconds
+          example: 30
         regions:
           type: array
-          description: Monitoring regions the check runs from.
           items:
             type: string
-        paused:
-          type: boolean
+          example:
+          - paris
+          - london
+          - frankfurt
         status:
           type: string
-          description: Current monitor status.
           enum:
           - up
           - down
-          - paused
-        created_at:
+        paused:
+          type: boolean
+        expected_status_code:
           type: string
-          format: date-time
+          description: Use "2xx" for 200-299, "1xx-3xx" for 100-399, or a specific code like "200"
+          example: 2xx
+        required_keyword:
+          type: string
+        follow_redirects:
+          type: boolean
+        ip_version:
+          type: integer
+          enum:
+          - 4
+          - 6
+          description: IP version used to reach the target. 6 = checked over IPv6 only (http, port and icmp protocols), from the selected regions that have an IPv6 probe; rejected if none of them has one.
+        port:
+          type:
+          - integer
+          - 'null'
+        ssl_expiration:
+          type: integer
+          description: Days until SSL expiration
+        alerts_wait:
+          type: integer
+          description: Minutes before alerting (-1 to disable)
+        escalation_policy:
+          type:
+          - object
+          - 'null'
+          properties:
+            uuid:
+              type: string
+            name:
+              type: string
+    MonitorCreate:
+      type: object
+      required:
+      - name
+      - url
+      properties:
+        name:
+          type: string
+          example: My Website
+        url:
+          type: string
+          example: https://acme.com
+        protocol:
+          type: string
+          enum:
+          - http
+          - port
+          - icmp
+          default: http
+        http_method:
+          type: string
+          enum:
+          - GET
+          - POST
+          - PUT
+          - HEAD
+          - DELETE
+          - PATCH
+          - OPTIONS
+          default: GET
+        check_frequency:
+          type: integer
+          enum:
+          - 10
+          - 20
+          - 30
+          - 60
+          - 120
+          - 180
+          - 300
+          - 600
+          - 1800
+          - 3600
+          - 21600
+          - 43200
+          - 86400
+          default: 30
+        regions:
+          type: array
+          items:
+            type: string
+            enum:
+            - sanfrancisco
+            - nyc
+            - london
+            - paris
+            - frankfurt
+            - seoul
+            - mumbai
+            - bangalore
+            - saopaulo
+            - california
+            - virginia
+            - sydney
+            - toronto
+            - amsterdam
+            - singapore
+            - tokyo
+            - bahrain
+            - capetown
+        expected_status_code:
+          type: string
+          description: Use "2xx" for 200-299, "1xx-3xx" for 100-399, or a specific code like "200"
+          default: 2xx
+        required_keyword:
+          type: string
+        follow_redirects:
+          type: boolean
+          default: true
+        ip_version:
+          type: integer
+          enum:
+          - 4
+          - 6
+          default: 4
+          description: IP version used to reach the target. 6 = checked over IPv6 only (http, port and icmp protocols), from the selected regions that have an IPv6 probe; rejected if none of them has one.
+        port:
+          type: integer
+        paused:
+          type: boolean
+          default: false
+        alerts_wait:
+          type: integer
+          enum:
+          - -1
+          - 0
+          - 1
+          - 2
+          - 3
+          - 5
+          - 10
+          - 30
+          - 60
+          default: 0
+        request_body:
+          type: string
+        request_headers:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+        escalation_policy:
+          type: string
+          description: Policy UUID or 'none' to unlink
   parameters:
     MonitorUuid:
-      name: monitor_uuid
+      name: uuid
       in: path
       required: true
-      description: The unique identifier of the monitor.
       schema:
         type: string
+      description: Monitor UUID
+      example: mon_OYKr5fpSDHqbP2
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Resource not found
+    Unauthorized:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Invalid or missing API key
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'
+      description: API key from https://app.hyperping.io/project/developers
+externalDocs:
+  description: Hyperping API Documentation
+  url: https://hyperping.com/docs/api/overview

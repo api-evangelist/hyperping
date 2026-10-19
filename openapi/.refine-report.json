@@ -1,7 +1,7 @@
 {
   "provider": "hyperping",
   "sources": [
-    "_original/hyperping-openapi.yml"
+    "_original/hyperping-openapi.json"
   ],
   "outputs": [
     "hyperping-healthchecks-api-openapi.yml",
@@ -12,24 +12,13 @@
     "hyperping-reports-api-openapi.yml",
     "hyperping-status-pages-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "hyperping-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "superseded outputs removed: hyperping-health-checks-api-openapi.yml",
+    "hyperping-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: written (+1 apis, 7 total)"
   ],
-  "skipped": [
-    "hyperping-health-checks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "hyperping-incidents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "hyperping-maintenance-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "hyperping-monitors-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "hyperping-outages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "hyperping-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "hyperping-status-pages-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }

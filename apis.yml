@@ -202,7 +202,7 @@ apis:
     url: https://hyperping.com/docs/integrations/webhooks
 - aid: hyperping:hyperping-health-checks-api
   name: Hyperping Health Checks API
-  description: Cron-style monitors that expect periodic pings from scheduled tasks.
+  description: Cron job and scheduled task monitoring
   humanURL: https://hyperping.com/docs/api/monitors
   baseURL: https://api.hyperping.io/v1
   tags:

@@ -1,30 +1,32 @@
 openapi: 3.2.0
 info:
   title: Hyperping Maintenance API
-  description: REST API for the Hyperping uptime monitoring and status page platform.
-  termsOfService: https://hyperping.com/terms
+  description: Hyperping is an uptime monitoring platform and status page service. This API allows you to programmatically manage monitors, healthchecks, status pages, incidents, outages, maintenance windows, and access uptime reports.
+  version: 1.0.0
   contact:
     name: Hyperping Support
     email: hello@hyperping.io
-  version: '1.0'
+    url: https://hyperping.com
+  x-logo:
+    url: https://hyperping.com/icons/icon-512x512.png
 servers:
-- url: https://api.hyperping.io/v1
-  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+- url: https://api.hyperping.io
+  description: Production API server
 security:
 - bearerAuth: []
 tags:
 - name: Maintenance
-  description: Scheduled maintenance windows.
+  description: Scheduled maintenance windows
 paths:
-  /maintenance-windows:
+  /v1/maintenance-windows:
     get:
-      operationId: listMaintenanceWindows
       tags:
       - Maintenance
-      summary: List all maintenance windows
+      summary: List maintenance windows
+      operationId: listMaintenance
       responses:
         '200':
-          description: A list of maintenance windows.
+          description: List of maintenance windows
           content:
             application/json:
               schema:
@@ -32,137 +34,175 @@ paths:
                 items:
                   $ref: '#/components/schemas/MaintenanceWindow'
     post:
-      operationId: createMaintenanceWindow
       tags:
       - Maintenance
       summary: Create a maintenance window
+      description: Schedule a maintenance window to suppress alerts.
+      operationId: createMaintenance
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MaintenanceWindowInput'
+              $ref: '#/components/schemas/MaintenanceCreate'
       responses:
         '201':
-          description: The created maintenance window.
+          description: Maintenance window created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MaintenanceWindow'
-  /maintenance-windows/{maintenance_uuid}:
-    parameters:
-    - $ref: '#/components/parameters/MaintenanceUuid'
+                type: object
+                properties:
+                  uuid:
+                    type: string
+  /v1/maintenance-windows/{uuid}:
     get:
-      operationId: getMaintenanceWindow
       tags:
       - Maintenance
-      summary: Retrieve a maintenance window
+      summary: Get a maintenance window
+      operationId: getMaintenance
+      parameters:
+      - $ref: '#/components/parameters/MaintenanceUuid'
       responses:
         '200':
-          description: The requested maintenance window.
+          description: Maintenance window details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MaintenanceWindow'
     put:
-      operationId: updateMaintenanceWindow
       tags:
       - Maintenance
       summary: Update a maintenance window
+      operationId: updateMaintenance
+      parameters:
+      - $ref: '#/components/parameters/MaintenanceUuid'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MaintenanceWindowInput'
+              $ref: '#/components/schemas/MaintenanceCreate'
       responses:
         '200':
-          description: The updated maintenance window.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MaintenanceWindow'
+          description: Maintenance window updated
     delete:
-      operationId: deleteMaintenanceWindow
       tags:
       - Maintenance
       summary: Delete a maintenance window
-      responses:
-        '204':
-          description: The maintenance window was deleted.
-  /maintenance-windows/{maintenance_uuid}/complete:
-    parameters:
-    - $ref: '#/components/parameters/MaintenanceUuid'
-    post:
-      operationId: completeMaintenanceWindow
-      tags:
-      - Maintenance
-      summary: Mark a maintenance window as completed
+      operationId: deleteMaintenance
+      parameters:
+      - $ref: '#/components/parameters/MaintenanceUuid'
       responses:
         '200':
-          description: The completed maintenance window.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MaintenanceWindow'
+          description: Maintenance window deleted
 components:
   schemas:
-    MaintenanceWindowInput:
+    LocalizedText:
+      type: object
+      description: Localized text object with language keys
+      properties:
+        en:
+          type: string
+        fr:
+          type: string
+        de:
+          type: string
+        ru:
+          type: string
+        nl:
+          type: string
+        pl:
+          type: string
+        se:
+          type: string
+      example:
+        en: We are investigating the issue
+        fr: Nous enquêtons sur le problème
+    MaintenanceCreate:
       type: object
       required:
-      - title
-      - starts_at
-      - ends_at
+      - name
+      - start_date
+      - end_date
+      - monitors
       properties:
-        title:
+        name:
           type: string
-        starts_at:
+          example: Scheduled Database Maintenance
+        start_date:
           type: string
           format: date-time
-        ends_at:
+        end_date:
           type: string
           format: date-time
         monitors:
           type: array
           items:
             type: string
-        notify_subscribers:
-          type: boolean
+        statuspages:
+          type: array
+          items:
+            type: string
+        title:
+          $ref: '#/components/schemas/LocalizedText'
+        updates:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                $ref: '#/components/schemas/LocalizedText'
+              date:
+                type: string
+                format: date-time
+        notificationOption:
+          type: string
+          enum:
+          - none
+          - immediate
+          - scheduled
+          default: none
+        notificationMinutes:
+          type: integer
+          default: 60
     MaintenanceWindow:
       type: object
       properties:
         uuid:
           type: string
-        title:
+        name:
           type: string
-        status:
-          type: string
-          enum:
-          - scheduled
-          - in_progress
-          - completed
-        starts_at:
+        start_date:
           type: string
           format: date-time
-        ends_at:
+        end_date:
           type: string
           format: date-time
         monitors:
           type: array
           items:
             type: string
-        notify_subscribers:
-          type: boolean
+        statuspages:
+          type: array
+          items:
+            type: string
+        title:
+          $ref: '#/components/schemas/LocalizedText'
   parameters:
     MaintenanceUuid:
-      name: maintenance_uuid
+      name: uuid
       in: path
       required: true
-      description: The unique identifier of the maintenance window.
       schema:
         type: string
+      description: Maintenance window UUID
+      example: mw_ot0dguXcrUnB2b
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'
+      description: API key from https://app.hyperping.io/project/developers
+externalDocs:
+  description: Hyperping API Documentation
+  url: https://hyperping.com/docs/api/overview

@@ -1,32 +1,33 @@
 openapi: 3.2.0
 info:
   title: Hyperping Healthchecks API
-  description: REST API for the Hyperping uptime monitoring and status page platform.
-  termsOfService: https://hyperping.com/terms
+  description: Hyperping is an uptime monitoring platform and status page service. This API allows you to programmatically manage monitors, healthchecks, status pages, incidents, outages, maintenance windows, and access uptime reports.
+  version: 1.0.0
   contact:
     name: Hyperping Support
     email: hello@hyperping.io
-  version: '1.0'
+    url: https://hyperping.com
+  x-logo:
+    url: https://hyperping.com/icons/icon-512x512.png
 servers:
-- url: https://api.hyperping.io/v1
-  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+- url: https://api.hyperping.io
+  description: Production API server
 security:
 - bearerAuth: []
 tags:
 - name: Health Checks
-  description: Cron-style monitors that expect periodic pings from scheduled tasks.
+  description: Cron job and scheduled task monitoring
 paths:
-  /healthchecks:
-    servers:
-    - url: https://api.hyperping.io/v2
+  /v1/healthchecks:
     get:
-      operationId: listHealthchecks
       tags:
       - Health Checks
       summary: List all healthchecks
+      description: Returns all healthcheck monitors for cron job monitoring.
+      operationId: listHealthchecks
       responses:
         '200':
-          description: A list of healthchecks.
+          description: List of healthchecks
           content:
             application/json:
               schema:
@@ -34,151 +35,200 @@ paths:
                 items:
                   $ref: '#/components/schemas/Healthcheck'
     post:
-      operationId: createHealthcheck
       tags:
       - Health Checks
-      summary: Create a new healthcheck
+      summary: Create a healthcheck
+      description: Creates a new healthcheck. Supports simple (periodic interval) and cron (cron expression) modes.
+      operationId: createHealthcheck
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/HealthcheckInput'
+              $ref: '#/components/schemas/HealthcheckCreate'
       responses:
         '201':
-          description: The created healthcheck.
+          description: Healthcheck created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Healthcheck'
-  /healthchecks/{healthcheck_uuid}:
-    servers:
-    - url: https://api.hyperping.io/v2
-    parameters:
-    - $ref: '#/components/parameters/HealthcheckUuid'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  healthcheck:
+                    $ref: '#/components/schemas/Healthcheck'
+  /v1/healthchecks/{uuid}:
     get:
-      operationId: getHealthcheck
       tags:
       - Health Checks
-      summary: Retrieve a healthcheck
+      summary: Get a healthcheck
+      operationId: getHealthcheck
+      parameters:
+      - $ref: '#/components/parameters/HealthcheckUuid'
       responses:
         '200':
-          description: The requested healthcheck.
+          description: Healthcheck details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Healthcheck'
     put:
-      operationId: updateHealthcheck
       tags:
       - Health Checks
       summary: Update a healthcheck
+      operationId: updateHealthcheck
+      parameters:
+      - $ref: '#/components/parameters/HealthcheckUuid'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/HealthcheckInput'
+              $ref: '#/components/schemas/HealthcheckCreate'
       responses:
         '200':
-          description: The updated healthcheck.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Healthcheck'
+          description: Healthcheck updated
     delete:
-      operationId: deleteHealthcheck
       tags:
       - Health Checks
       summary: Delete a healthcheck
+      operationId: deleteHealthcheck
+      parameters:
+      - $ref: '#/components/parameters/HealthcheckUuid'
       responses:
-        '204':
-          description: The healthcheck was deleted.
-  /healthchecks/{healthcheck_uuid}/pause:
-    servers:
-    - url: https://api.hyperping.io/v2
-    parameters:
-    - $ref: '#/components/parameters/HealthcheckUuid'
+        '200':
+          description: Healthcheck deleted
+  /v1/healthchecks/{uuid}/pause:
     post:
-      operationId: pauseHealthcheck
       tags:
       - Health Checks
       summary: Pause a healthcheck
+      description: Temporarily pause monitoring and alerting.
+      operationId: pauseHealthcheck
+      parameters:
+      - $ref: '#/components/parameters/HealthcheckUuid'
       responses:
         '200':
-          description: The paused healthcheck.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Healthcheck'
-  /healthchecks/{healthcheck_uuid}/resume:
-    servers:
-    - url: https://api.hyperping.io/v2
-    parameters:
-    - $ref: '#/components/parameters/HealthcheckUuid'
+          description: Healthcheck paused
+  /v1/healthchecks/{uuid}/resume:
     post:
-      operationId: resumeHealthcheck
       tags:
       - Health Checks
       summary: Resume a healthcheck
+      description: Resume a paused healthcheck.
+      operationId: resumeHealthcheck
+      parameters:
+      - $ref: '#/components/parameters/HealthcheckUuid'
       responses:
         '200':
-          description: The resumed healthcheck.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Healthcheck'
+          description: Healthcheck resumed
 components:
-  parameters:
-    HealthcheckUuid:
-      name: healthcheck_uuid
-      in: path
-      required: true
-      description: The unique identifier of the healthcheck.
-      schema:
-        type: string
   schemas:
-    HealthcheckInput:
-      type: object
-      required:
-      - name
-      - period
-      properties:
-        name:
-          type: string
-        period:
-          type: integer
-          description: Expected ping period in seconds.
-        grace:
-          type: integer
-          description: Grace period in seconds before alerting.
     Healthcheck:
       type: object
       properties:
         uuid:
           type: string
+          example: tok_abc123def456
+        publicUuid:
+          type: string
+          readOnly: true
+          description: Public identifier (hc_). Use it to show the healthcheck on a status page. Unlike uuid, which is also the token of the ping URL, it is safe to share.
+          example: hc_Kq3vX9mPzL2wR8tY5nB7cD4f
         name:
           type: string
+          example: Daily Backup Job
+        pingUrl:
+          type: string
+          example: https://hc.hyperping.io/tok_abc123def456
         period:
           type: integer
-          description: Expected ping period in seconds.
-        grace:
+          description: Expected interval in seconds
+        periodValue:
+          type:
+          - integer
+          - 'null'
+        periodType:
+          type:
+          - string
+          - 'null'
+          enum:
+          - seconds
+          - minutes
+          - hours
+          - days
+        gracePeriod:
           type: integer
-          description: Grace period in seconds before alerting.
-        status:
+          description: Grace period in seconds
+        gracePeriodValue:
+          type: integer
+        gracePeriodType:
           type: string
           enum:
-          - up
-          - down
-          - paused
-        last_ping_at:
+          - seconds
+          - minutes
+          - hours
+          - days
+        cron:
+          type:
+          - string
+          - 'null'
+          example: 0 2 * * *
+        timezone:
           type: string
-          format: date-time
-        created_at:
+          example: America/New_York
+    HealthcheckCreate:
+      type: object
+      required:
+      - name
+      - grace_period_value
+      - grace_period_type
+      properties:
+        name:
           type: string
-          format: date-time
+          example: Daily Backup Job
+        period_value:
+          type: integer
+          description: Expected ping interval (simple mode)
+        period_type:
+          type: string
+          enum:
+          - seconds
+          - minutes
+          - hours
+          - days
+        grace_period_value:
+          type: integer
+          example: 5
+        grace_period_type:
+          type: string
+          enum:
+          - seconds
+          - minutes
+          - hours
+          - days
+        cron:
+          type: string
+          description: Cron expression (cron mode)
+          example: 0 2 * * *
+        timezone:
+          type: string
+          default: UTC
+  parameters:
+    HealthcheckUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Healthcheck UUID
+      example: tok_abc123def456
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'
+      description: API key from https://app.hyperping.io/project/developers
+externalDocs:
+  description: Hyperping API Documentation
+  url: https://hyperping.com/docs/api/overview

@@ -1,193 +1,337 @@
 openapi: 3.2.0
 info:
   title: Hyperping Outages API
-  description: REST API for the Hyperping uptime monitoring and status page platform.
-  termsOfService: https://hyperping.com/terms
+  description: Hyperping is an uptime monitoring platform and status page service. This API allows you to programmatically manage monitors, healthchecks, status pages, incidents, outages, maintenance windows, and access uptime reports.
+  version: 1.0.0
   contact:
     name: Hyperping Support
     email: hello@hyperping.io
-  version: '1.0'
+    url: https://hyperping.com
+  x-logo:
+    url: https://hyperping.com/icons/icon-512x512.png
 servers:
-- url: https://api.hyperping.io/v1
-  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+- url: https://api.hyperping.io
+  description: Production API server
 security:
 - bearerAuth: []
 tags:
 - name: Outages
-  description: On-call outage acknowledgement, resolution, and escalation.
+  description: Detected downtime events and manual incidents
 paths:
-  /outages:
-    servers:
-    - url: https://api.hyperping.io/v2
+  /v2/outages:
     get:
-      operationId: listOutages
       tags:
       - Outages
       summary: List all outages
+      description: Returns a paginated list of detected outages.
+      operationId: listOutages
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: number
+          default: 0
+        description: Page number (0-indexed)
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+          - all
+          - ongoing
+          - resolved
+          default: all
+        description: Filter by outage status
+      - name: type
+        in: query
+        schema:
+          type: string
+          enum:
+          - all
+          - manual
+          - monitor
+          default: all
+        description: Filter by outage type
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Search by description or incident number (e.g. INC-123)
       responses:
         '200':
-          description: A list of outages.
+          description: List of outages
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Outage'
+                type: object
+                properties:
+                  outages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Outage'
+                  hasNextPage:
+                    type: boolean
+                  total:
+                    type: number
+                  ongoingCount:
+                    type: number
+                  page:
+                    type: number
+                  resultsPerPage:
+                    type: number
     post:
-      operationId: createOutage
       tags:
       - Outages
-      summary: Create a manual outage
+      summary: Create a manual incident
+      description: Creates a manual incident that can trigger escalation policies.
+      operationId: createOutage
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OutageInput'
+              $ref: '#/components/schemas/OutageCreate'
       responses:
-        '201':
-          description: The created outage.
+        '200':
+          description: Incident created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Outage'
-  /outages/{outage_uuid}:
-    servers:
-    - url: https://api.hyperping.io/v2
-    parameters:
-    - $ref: '#/components/parameters/OutageUuid'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  outage:
+                    $ref: '#/components/schemas/Outage'
+  /v2/outages/{uuid}:
     get:
-      operationId: getOutage
       tags:
       - Outages
-      summary: Retrieve an outage
+      summary: Get an outage
+      operationId: getOutage
+      parameters:
+      - $ref: '#/components/parameters/OutageUuid'
       responses:
         '200':
-          description: The requested outage.
+          description: Outage details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Outage'
     delete:
-      operationId: deleteOutage
       tags:
       - Outages
-      summary: Delete a manual outage
+      summary: Delete an outage
+      operationId: deleteOutage
+      parameters:
+      - $ref: '#/components/parameters/OutageUuid'
       responses:
-        '204':
-          description: The outage was deleted.
-  /outages/{outage_uuid}/acknowledge:
-    servers:
-    - url: https://api.hyperping.io/v2
-    parameters:
-    - $ref: '#/components/parameters/OutageUuid'
+        '200':
+          description: Outage deleted
+  /v2/outages/{uuid}/acknowledge:
     post:
-      operationId: acknowledgeOutage
       tags:
       - Outages
       summary: Acknowledge an outage
+      description: Acknowledge an outage to stop further escalation notifications.
+      operationId: acknowledgeOutage
+      parameters:
+      - $ref: '#/components/parameters/OutageUuid'
       responses:
         '200':
-          description: The acknowledged outage.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Outage'
-  /outages/{outage_uuid}/unacknowledge:
-    servers:
-    - url: https://api.hyperping.io/v2
-    parameters:
-    - $ref: '#/components/parameters/OutageUuid'
+          description: Outage acknowledged
+  /v2/outages/{uuid}/unacknowledge:
     post:
-      operationId: unacknowledgeOutage
       tags:
       - Outages
-      summary: Remove acknowledgement from an outage
+      summary: Unacknowledge an outage
+      description: Remove acknowledgment to resume escalation alerts.
+      operationId: unacknowledgeOutage
+      parameters:
+      - $ref: '#/components/parameters/OutageUuid'
       responses:
         '200':
-          description: The unacknowledged outage.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Outage'
-  /outages/{outage_uuid}/resolve:
-    servers:
-    - url: https://api.hyperping.io/v2
-    parameters:
-    - $ref: '#/components/parameters/OutageUuid'
+          description: Acknowledgment removed
+  /v2/outages/{uuid}/resolve:
     post:
-      operationId: resolveOutage
       tags:
       - Outages
       summary: Resolve an outage
+      description: Mark an outage as resolved.
+      operationId: resolveOutage
+      parameters:
+      - $ref: '#/components/parameters/OutageUuid'
       responses:
         '200':
-          description: The resolved outage.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Outage'
-  /outages/{outage_uuid}/escalate:
-    servers:
-    - url: https://api.hyperping.io/v2
-    parameters:
-    - $ref: '#/components/parameters/OutageUuid'
+          description: Outage resolved
+  /v2/outages/{uuid}/escalate:
     post:
-      operationId: escalateOutage
       tags:
       - Outages
-      summary: Escalate an outage to team members
+      summary: Escalate an outage
+      description: Manually escalate to the next level in your escalation policy.
+      operationId: escalateOutage
+      parameters:
+      - $ref: '#/components/parameters/OutageUuid'
       responses:
         '200':
-          description: The escalated outage.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Outage'
+          description: Outage escalated
 components:
+  parameters:
+    OutageUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Outage UUID
+      example: outage_abc123
   schemas:
-    OutageInput:
+    OutageCreate:
       type: object
+      required:
+      - description
       properties:
-        monitor_uuid:
+        description:
           type: string
-        title:
+          example: Database maintenance in progress
+        escalationPolicyUuid:
           type: string
-        message:
+          description: UUID of escalation policy to trigger
+        severity:
           type: string
+          enum:
+          - critical
+          - major
+          - minor
+          default: minor
+          description: Severity level of the incident
+        summary:
+          type: string
+          description: Initial summary for the incident (rich text)
     Outage:
       type: object
       properties:
         uuid:
           type: string
-        monitor_uuid:
+          example: outage_abc123
+        startDate:
           type: string
-        type:
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        durationMs:
+          type: number
+          description: Duration in milliseconds
+        statusCode:
+          type: number
+          example: 500
+        description:
           type: string
-          description: Outage origin.
+        isResolved:
+          type: boolean
+        detectedLocation:
+          type: string
+          example: paris
+        confirmedLocations:
+          type: string
+          example: paris,london,frankfurt
+        protocol:
+          type: string
+          example: http
+        severity:
+          type: string
           enum:
-          - monitor
-          - manual
-        acknowledged:
-          type: boolean
-        resolved:
-          type: boolean
-        started_at:
-          type: string
+          - critical
+          - major
+          - minor
+          default: minor
+        incidentNumber:
+          type:
+          - number
+          - 'null'
+          description: Auto-incrementing per-project incident number
+        acknowledgedAt:
+          type:
+          - string
+          - 'null'
           format: date-time
-        resolved_at:
-          type: string
-          format: date-time
-  parameters:
-    OutageUuid:
-      name: outage_uuid
-      in: path
-      required: true
-      description: The unique identifier of the outage.
-      schema:
-        type: string
+        acknowledgedBy:
+          type:
+          - object
+          - 'null'
+          properties:
+            uuid:
+              type: string
+            email:
+              type: string
+            name:
+              type: string
+        reportedBy:
+          type:
+          - object
+          - 'null'
+          description: User who reported the incident (manual incidents only)
+          properties:
+            uuid:
+              type: string
+            email:
+              type: string
+            name:
+              type: string
+        monitor:
+          type:
+          - object
+          - 'null'
+          properties:
+            uuid:
+              type: string
+            name:
+              type: string
+            url:
+              type: string
+            protocol:
+              type: string
+        escalationPolicy:
+          type:
+          - object
+          - 'null'
+          properties:
+            uuid:
+              type: string
+            name:
+              type: string
+            alertedSteps:
+              type: number
+            totalSteps:
+              type: number
+        summary:
+          type:
+          - string
+          - 'null'
+          description: User-written summary (rich text)
+        aiSummary:
+          type:
+          - string
+          - 'null'
+          description: AI-generated summary
+        postmortem:
+          type:
+          - string
+          - 'null'
+          description: Post-mortem analysis (rich text)
+        escalationPolicyUuid:
+          type:
+          - string
+          - 'null'
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'
+      description: API key from https://app.hyperping.io/project/developers
+externalDocs:
+  description: Hyperping API Documentation
+  url: https://hyperping.com/docs/api/overview

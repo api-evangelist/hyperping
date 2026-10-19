@@ -1,86 +1,145 @@
 openapi: 3.2.0
 info:
   title: Hyperping Reports API
-  description: REST API for the Hyperping uptime monitoring and status page platform.
-  termsOfService: https://hyperping.com/terms
+  description: Hyperping is an uptime monitoring platform and status page service. This API allows you to programmatically manage monitors, healthchecks, status pages, incidents, outages, maintenance windows, and access uptime reports.
+  version: 1.0.0
   contact:
     name: Hyperping Support
     email: hello@hyperping.io
-  version: '1.0'
+    url: https://hyperping.com
+  x-logo:
+    url: https://hyperping.com/icons/icon-512x512.png
 servers:
-- url: https://api.hyperping.io/v1
-  description: Hyperping API base (monitors, maintenance, status JSON). Other resources use sibling version segments (../v2, ../v3) on the same host.
+- url: https://api.hyperping.io
+  description: Production API server
 security:
 - bearerAuth: []
 tags:
 - name: Reports
-  description: Uptime, SLA, and MTTR reporting for monitors.
+  description: Uptime and performance reports
 paths:
-  /reporting/monitor-reports:
-    servers:
-    - url: https://api.hyperping.io/v2
+  /v2/reporting/monitor-reports:
     get:
-      operationId: listMonitorReports
       tags:
       - Reports
-      summary: Get reports for all monitors
+      summary: List all reports
+      description: Returns uptime reports for all monitors.
+      operationId: listReports
       responses:
         '200':
-          description: Monitor reports including SLA, MTTR, and outages.
+          description: List of reports
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/MonitorReport'
-  /reporting/monitor-reports/{monitor_uuid}:
-    servers:
-    - url: https://api.hyperping.io/v2
-    parameters:
-    - $ref: '#/components/parameters/MonitorUuid'
+                  $ref: '#/components/schemas/ReportSummary'
+  /v2/reporting/monitor-reports/{uuid}:
     get:
-      operationId: getMonitorReport
       tags:
       - Reports
-      summary: Get a report for a specific monitor
+      summary: Get monitor report
+      description: Returns detailed SLA, MTTR, and outage data for a specific monitor.
+      operationId: getReport
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Monitor UUID
+        example: mon_wq1sFyHbxC7YRC
+      - name: from
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Start date (ISO 8601). Defaults to 7 days ago.
+      - name: to
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: End date (ISO 8601). Defaults to now.
       responses:
         '200':
-          description: The monitor report.
+          description: Detailed report
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MonitorReport'
+                $ref: '#/components/schemas/Report'
 components:
-  parameters:
-    MonitorUuid:
-      name: monitor_uuid
-      in: path
-      required: true
-      description: The unique identifier of the monitor.
-      schema:
-        type: string
   schemas:
-    MonitorReport:
+    Report:
       type: object
       properties:
-        monitor_uuid:
+        uuid:
+          type: string
+        name:
+          type: string
+        protocol:
+          type: string
+        period:
+          type: object
+          properties:
+            from:
+              type: string
+              format: date-time
+            to:
+              type: string
+              format: date-time
+        sla:
+          type: number
+          example: 99.184
+        outages:
+          type: object
+          properties:
+            count:
+              type: integer
+            totalDowntime:
+              type: integer
+              description: Seconds
+            totalDowntimeFormatted:
+              type: string
+            longestOutage:
+              type: integer
+            longestOutageFormatted:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  startDate:
+                    type: string
+                    format: date-time
+                  endDate:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: integer
+                  durationFormatted:
+                    type: string
+        mttr:
+          type: integer
+          description: Mean Time To Recovery in seconds
+        mttrFormatted:
+          type: string
+    ReportSummary:
+      type: object
+      properties:
+        uuid:
+          type: string
+        name:
           type: string
         sla:
           type: number
-          format: float
-          description: SLA / uptime percentage over the report period.
-        mttr:
-          type: integer
-          description: Mean time to recovery in seconds.
-        outages:
-          type: integer
-          description: Number of outages in the report period.
-        response_time_avg:
-          type: number
-          format: float
-          description: Average response time in milliseconds.
+          description: Uptime percentage
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      description: 'Project API key issued from the Developers tab in project settings, sent as `Authorization: Bearer $USER_API_KEY`. Keys can be Read & Write or Read-only. A missing or invalid key returns 401; insufficient permissions return 403.'
+      description: API key from https://app.hyperping.io/project/developers
+externalDocs:
+  description: Hyperping API Documentation
+  url: https://hyperping.com/docs/api/overview
