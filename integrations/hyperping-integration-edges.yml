@@ -14,7 +14,7 @@ edges:
     registered_name: com.hyperping/hyperping
     register_id: com.hyperping/hyperping
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   mcp_registry:
     servers:
     - com.hyperping/hyperping
@@ -47,10 +47,28 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Slack app
+- partner_name: Terraform (terraform-registry)
+  partner: terraform
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: terraform-registry
+  evidence: https://registry.terraform.io/providers/hyperping/hyperping
+  mirror_of: terraform/integrations/terraform-integration-edges.yml
+  apps:
+  - hyperping/hyperping
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
 generated: '2026-10-14'
 method: searched
 checked:
 - https://registry.modelcontextprotocol.io/v0/servers
 - slack/integrations/slack-integration-edges.yml
+- terraform/integrations/terraform-integration-edges.yml
 source:
 - slack/integrations/slack-integration-edges.yml
