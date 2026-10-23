@@ -232,3 +232,9 @@ components:
 externalDocs:
   description: Hyperping API Documentation
   url: https://hyperping.com/docs/api/overview
+x-provenance:
+  method: harvested
+  publisher: Hyperping
+  source: https://hyperping.com/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
