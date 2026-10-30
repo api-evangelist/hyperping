@@ -1,4 +1,4 @@
-# Hyperping (hyperping)
+# Hyperping
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,114 +66,134 @@
 
 Hyperping is an uptime monitoring and status page platform. Its REST API lets teams programmatically manage HTTP, ping, port, keyword, DNS, and browser monitors, run scheduled-task healthchecks, operate public status pages through incidents and maintenance windows, manage on-call outages, and pull uptime and SLA reporting.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/hyperping/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/hyperping/refs/heads/main/apis.yml)
+**Areas:** Uptime Monitoring · Status Pages · Incident Management · Observability · On-Call
 
-## Tags
+## Hyperping on APIs.io
 
-- Uptime Monitoring
-- Status Pages
-- Incident Management
-- Observability
-- On-Call
+Everything profiled for Hyperping is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/hyperping/](https://apis.io/providers/hyperping/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (7)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [Hyperping Incidents API](https://apis.io/apis/hyperping/hyperping-incidents-api/) — Status page incident lifecycle and updates.
+- [Hyperping Maintenance API](https://apis.io/apis/hyperping/hyperping-maintenance-api/) — Scheduled maintenance windows.
+- [Hyperping Monitors API](https://apis.io/apis/hyperping/hyperping-monitors-api/) — Create, retrieve, update, and delete uptime monitors.
+- [Hyperping Outages API](https://apis.io/apis/hyperping/hyperping-outages-api/) — On-call outage acknowledgement, resolution, and escalation.
+- [Hyperping Reports API](https://apis.io/apis/hyperping/hyperping-reports-api/) — Uptime, SLA, and MTTR reporting for monitors.
+- [Hyperping Status Pages API](https://apis.io/apis/hyperping/hyperping-status-pages-api/) — Public machine-readable status feed for a status page.
+- [Hyperping Health Checks API](https://apis.io/apis/hyperping/hyperping-health-checks-api/) — Cron-style monitors that expect periodic pings from scheduled tasks.
 
-## APIs
+### Published properties
 
-### Hyperping Monitors API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Programmatically create, list, retrieve, update, and delete HTTP, ping, port, keyword, DNS, and browser monitors, plus cron-style healthchecks for scheduled tasks and background jobs, and pull uptime / SLA / MTTR reporting.
+#### Agentic access (1)
 
-- **Human URL:** [https://hyperping.com/docs/api/monitors](https://hyperping.com/docs/api/monitors)
-- **Base URL:** `https://api.hyperping.io/v1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Hyperping Agentic Access](https://apis.io/agentic-access/hyperping/hyperping-agentic-access/)
 
-- Monitors
-- Uptime Monitoring
-- Healthchecks
+#### Collections (8)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://hyperping.com/docs/api/monitors)
-- [API Reference](https://hyperping.com/docs/api/monitors)
-- [OpenAPI](openapi/hyperping-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hyperping.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hyperping.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Hyperping API](https://apis.io/collections/hyperping/open-hyperping/)
+- [Hyperping Healthchecks API](https://apis.io/collections/hyperping/open-hyperping-healthchecks-api/)
+- [Hyperping Healthchecks Incidents API](https://apis.io/collections/hyperping/open-hyperping-incidents-api/)
+- [Hyperping Healthchecks Maintenance API](https://apis.io/collections/hyperping/open-hyperping-maintenance-api/)
+- [Hyperping Healthchecks Monitors API](https://apis.io/collections/hyperping/open-hyperping-monitors-api/)
+- [Hyperping Healthchecks Outages API](https://apis.io/collections/hyperping/open-hyperping-outages-api/)
+- [Hyperping Healthchecks Reports API](https://apis.io/collections/hyperping/open-hyperping-reports-api/)
+- [Hyperping Healthchecks Status Pages API](https://apis.io/collections/hyperping/open-hyperping-status-pages-api/)
 
-### Hyperping Status Pages API
+#### Governance rules (1)
 
-Public machine-readable status feed exposing a status page's overall status indicator plus per-service operational state and uptime via the /{subdomain}/status.json endpoint for dashboards and internal tooling.
+Spectral rulesets for the provider's contracts.
 
-- **Human URL:** [https://hyperping.com/docs/status-page/status-page-json](https://hyperping.com/docs/status-page/status-page-json)
-- **Base URL:** `https://api.hyperping.io/v1`
+- [Hyperping — hyperping go rules](https://apis.io/rules/hyperping/hyperping-hyperping-go-spectral-rules/)
 
-#### Tags
+#### Security (2)
 
-- Status Pages
-- Public Status
-- JSON
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Hyperping Authentication](https://apis.io/security/hyperping/hyperping-authentication/)
+- [Hyperping Domain Security](https://apis.io/security/hyperping/hyperping-domain-security/)
 
-- [Documentation](https://hyperping.com/docs/status-page/status-page-json)
-- [OpenAPI](openapi/hyperping-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hyperping.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hyperping.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Hyperping Incidents API
+Published plans, tiers and prices.
 
-Manage the full incident lifecycle on status pages (investigating, identified, monitoring, resolved) with threaded updates, schedule and complete maintenance windows, and acknowledge, resolve, or escalate on-call outages.
+- [Hyperping Plans Pricing](https://apis.io/plans/hyperping/hyperping-plans-pricing/)
 
-- **Human URL:** [https://hyperping.com/docs/api/incidents](https://hyperping.com/docs/api/incidents)
-- **Base URL:** `https://api.hyperping.io/v1`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Incidents
-- Maintenance
-- Outages
+- [Hyperping Rate Limits](https://apis.io/rate-limits/hyperping/hyperping-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://hyperping.com/docs/api/incidents)
-- [API Reference](https://hyperping.com/docs/api/incidents)
-- [OpenAPI](openapi/hyperping-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hyperping.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hyperping.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### Hyperping Webhooks
+- [Hyperping Finops](https://apis.io/finops/hyperping/hyperping-finops/)
 
-Outbound event notifications delivering check.down and check.up payloads — including monitor UUID, status code, downtime duration, and multi-region ping results — to a configured webhook URL for incident automation.
+## Where to find this API
 
-- **Human URL:** [https://hyperping.com/docs/integrations/webhooks](https://hyperping.com/docs/integrations/webhooks)
-- **Base URL:** `https://api.hyperping.io/v1`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Webhooks
-- Events
-- Notifications
-
-#### Properties
-
-- [Documentation](https://hyperping.com/docs/integrations/webhooks)
-- [OpenAPI](openapi/hyperping-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/hyperping)
-- [LinkedIn](https://www.linkedin.com/company/hyperping)
 - [Website](https://hyperping.com/)
 - [Documentation](https://hyperping.com/docs)
-- [Plans](plans/hyperping-plans-pricing.yml)
-- [Rate Limits](rate-limits/hyperping-rate-limits.yml)
-- [Fin Ops](finops/hyperping-finops.yml)
+- [Blog](https://hyperping.com/blog)
+- [GitHub](https://github.com/hyperping)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 28.6** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 48.0 |
+| Contract governance | 15.2 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/hyperping/](https://apis.io/providers/hyperping/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Hyperping: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/hyperping/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
